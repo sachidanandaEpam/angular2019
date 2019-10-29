@@ -1,0 +1,7 @@
+<div class="item">
+    <h2>Video course: {{item.courseTitle}}</h2>
+    <span> {{item.duration}}</span> <span>{{item.courseTime}}</span>
+    <p>{{item.description}}</p>
+    <button (click)="editCourse($event)">Edit</button>
+    <button (click)="deleteCourse($event)">Delete</button>
+</div>
