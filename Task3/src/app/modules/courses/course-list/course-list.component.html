@@ -1,0 +1,8 @@
+<div class="add-new-course">
+    <button (click)="addCourse()">+ Add course</button>
+</div>
+<app-course-item *ngFor="let item of items" [item]="item" (deleteItem)="update($event)" (editItem)="update($event)">
+</app-course-item>
+<div class="load-more">
+    <a href="#">Load more</a>
+</div>
