@@ -90,4 +90,11 @@ describe('CourseItemComponent', () => {
     fixture.detectChanges();
     expect(consoleSpy).toHaveBeenCalledWith('');
   });
+
+  it('should display course items as per input', () => {
+    const title = fixture.debugElement.query(By.css('h2')).nativeElement;
+    const courseItemText = title.textContent;
+    fixture.detectChanges();
+    expect(courseItemText).toEqual(`Video course: ${component.item.title}`);
+  });
 });
