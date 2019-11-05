@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourseItemComponent } from './course-item.component';
 import { By } from '@angular/platform-browser';
+import { CourseItem } from 'src/app/entities/course-item';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -34,49 +35,45 @@ describe('CourseItemComponent', () => {
   });
 
   it('should delete course through event', () => {
-    const expectString = `Deleting ${component.item.title} course with id ${component.item.id}`;
-    component.deleteItem.subscribe((e: string) => {
-      expect(e).toEqual(expectString);
+    component.deleteItem.subscribe((item: CourseItem) => {
+      expect(item).toEqual(component.item);
     });
     component.deleteCourse();
   });
 
   it('should delete course through button click', () => {
-    const expectString = `Deleting ${component.item.title} course with id ${component.item.id}`;
-    spyOn(component.deleteItem, 'emit');
+    component.deleteItem.subscribe((item: CourseItem) => {
+      expect(item).toEqual(component.item);
+    });
 
     // trigger the click
-    // Need to find better way to identify the button
-    const button = fixture.debugElement.queryAll(By.css('button'));
-    button[1].nativeElement.click();
+    const button = fixture.debugElement.query(By.css('.btn-delete'));
+    button.nativeElement.click();
 
     fixture.detectChanges();
-
-    expect(component.deleteItem.emit).toHaveBeenCalledWith(expectString);
   });
 
   it('should edit course through event', () => {
-    component.editItem.subscribe((e: string) => {
-      expect(e).toEqual(`Editing ${component.item.title} course with id ${component.item.id}`);
+    component.editItem.subscribe((e: CourseItem) => {
+      expect(e).toEqual(component.item);
     });
     component.editCourse();
   });
 
   it('should edit course through button click', () => {
-    const expectString = `Editing ${component.item.title} course with id ${component.item.id}`;
-    spyOn(component.editItem, 'emit');
+    component.editItem.subscribe((e: CourseItem) => {
+      expect(e).toEqual(component.item);
+    });
 
     // trigger the click
     // Need to find better way to identify the button
-    const button = fixture.debugElement.queryAll(By.css('button'));
-    button[0].nativeElement.click();
+    const button = fixture.debugElement.query(By.css('.btn-edit'));
+    button.nativeElement.click();
 
     fixture.detectChanges();
-
-    expect(component.editItem.emit).toHaveBeenCalledWith(expectString);
   });
 
-  xit('should edit course through button click', () => {
+  it('should trigger ngChanges event', () => {
     const consoleSpy = spyOn(console, 'log');
 
     component.item = {
@@ -88,13 +85,27 @@ describe('CourseItemComponent', () => {
     };
 
     fixture.detectChanges();
-    expect(consoleSpy).toHaveBeenCalledWith('');
+    const title = fixture.debugElement.query(By.css('h2')).nativeElement;
+    const duration = fixture.debugElement.query(By.css('.duration')).nativeElement;
+    const courseTime = fixture.debugElement.query(By.css('.course-time')).nativeElement;
+    const description = fixture.debugElement.query(By.css('.description')).nativeElement;
+
+    expect(title.textContent).toEqual(`Video course: ${component.item.title}`);
+    expect(duration.textContent).toEqual(component.item.duration);
+    expect(courseTime.textContent).toEqual(component.item.courseTime);
+    expect(description.textContent).toEqual(component.item.description);
   });
 
   it('should display course items as per input', () => {
     const title = fixture.debugElement.query(By.css('h2')).nativeElement;
-    const courseItemText = title.textContent;
+    const duration = fixture.debugElement.query(By.css('.duration')).nativeElement;
+    const courseTime = fixture.debugElement.query(By.css('.course-time')).nativeElement;
+    const description = fixture.debugElement.query(By.css('.description')).nativeElement;
+
     fixture.detectChanges();
-    expect(courseItemText).toEqual(`Video course: ${component.item.title}`);
+    expect(title.textContent).toEqual(`Video course: ${component.item.title}`);
+    expect(duration.textContent).toEqual(component.item.duration);
+    expect(courseTime.textContent).toEqual(component.item.courseTime);
+    expect(description.textContent).toEqual(component.item.description);
   });
 });

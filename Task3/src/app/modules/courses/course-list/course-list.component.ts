@@ -9,8 +9,9 @@ import { CourseItem } from 'src/app/entities/course-item';
 export class CourseListComponent implements OnInit {
 
   items: CourseItem[];
+  actionStatus = '';
 
-  counter = 3;
+  counter: number;
 
   ngOnInit() {
     this.items = [{
@@ -37,10 +38,16 @@ export class CourseListComponent implements OnInit {
       duration: '1hr',
       courseTime: '12/21/2019'
     }];
+
+    this.counter = this.items.length;
   }
 
-  update(event) {
-    console.log(`Event triggered ${event}`);
+  update(item: CourseItem, status: string) {
+    if (status === 'deleted') {
+      this.actionStatus = `Deleted ${item.title}`;
+    } else if (status === 'edited') {
+      this.actionStatus = `Edited ${item.title}`;
+    }
   }
 
   addCourse() {

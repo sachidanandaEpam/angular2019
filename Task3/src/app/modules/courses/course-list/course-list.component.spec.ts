@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CourseListComponent } from './course-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { CourseItemComponent } from '../course-item/course-item.component';
 
 describe('CourseListComponent', () => {
   let component: CourseListComponent;
@@ -10,7 +11,7 @@ describe('CourseListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseListComponent],
+      declarations: [CourseListComponent, CourseItemComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -27,28 +28,20 @@ describe('CourseListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update with event', () => {
-    const consoleSpy = spyOn(console, 'log');
-
-    component.update('Testing update');
-    expect(consoleSpy).toHaveBeenCalledWith('Event triggered Testing update');
-  });
-
-  xit('should edit course through button click', () => {
-    const expectString = `Editing ${component.items[0].title} course with id ${component.items[0].id}`;
-
-    spyOn(component, 'update');
-    const consoleSpy = spyOn(console, 'log');
-
+  it('should edit course through button click', () => {
     // trigger the click
-    // Need to find better way to identify the button
-    const button = fixture.debugElement.queryAll(By.css('button'));
-    button[1].nativeElement.click();
+    const btnEdit = fixture.debugElement.queryAll(By.css('.btn-edit'));
+    btnEdit[0].nativeElement.click();
 
+    const actionStatus = fixture.debugElement.query(By.css('.action-status')).nativeElement;
     fixture.detectChanges();
+    expect(actionStatus.textContent).toEqual(`Edited ${component.items[0].title}`);
 
-    expect(component.update).toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith(`Event triggered ${expectString}`);
+    const btnDelete = fixture.debugElement.queryAll(By.css('.btn-delete'));
+    btnDelete[0].nativeElement.click();
+    fixture.detectChanges();
+    expect(actionStatus.textContent).toEqual(`Deleted ${component.items[0].title}`);
+
   });
 
   it('should add course', () => {
