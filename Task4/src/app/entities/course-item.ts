@@ -1,8 +1,11 @@
 export interface CourseItem {
     id: number;
     title: string;
-    duration: string;
+    durationInMins: number;
     description: string;
-    courseTime: string;
+    courseTime: number;
     creationTime: number;
+    isFresh?: boolean;
+    isReleased?: boolean;
+    isTopRated?: boolean;
 }

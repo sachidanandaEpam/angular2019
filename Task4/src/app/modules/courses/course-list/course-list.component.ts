@@ -1,44 +1,22 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ModuleWithComponentFactories } from '@angular/core';
 import { CourseItem } from 'src/app/entities/course-item';
-import * as moment from 'moment';
+import { FilterItemsPipe } from 'src/app/core/pipes/filter-items.pipe';
+import { ItemsService } from 'src/app/core/services/items.service';
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
-  styleUrls: ['./course-list.component.scss']
+  styleUrls: ['./course-list.component.scss'],
+  providers: [FilterItemsPipe]
 })
 export class CourseListComponent implements OnInit {
   items: CourseItem[];
   actionStatus = '';
 
+  constructor(private filterPipe: FilterItemsPipe, private itemsService: ItemsService) { }
+
   ngOnInit() {
-    this.items = [{
-      id: 1,
-      title: 'Angular Program 2019',
-      // tslint:disable-next-line: max-line-length
-      description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or colleges classes.They are published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      duration: '2hr 30min',
-      courseTime: '10/29/2019',
-      creationTime: moment('09/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    },
-    {
-      id: 2,
-      title: 'CSS tips',
-      // tslint:disable-next-line: max-line-length
-      description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or colleges classes.They are published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      duration: '1hr',
-      courseTime: '11/01/2019',
-      creationTime: moment('10/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    },
-    {
-      id: 3,
-      title: 'Typescript Introduction',
-      // tslint:disable-next-line: max-line-length
-      description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or colleges classes.They are published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      duration: '1hr',
-      courseTime: '12/21/2019',
-      creationTime: moment('12/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    }];
+    this.items = this.itemsService.getItems();
   }
 
   delete(inputItem: CourseItem) {
@@ -69,9 +47,15 @@ export class CourseListComponent implements OnInit {
       id: currentItemsCount,
       title: `Typescript Introduction ${currentItemsCount}`,
       description: `Learn about where you can find course descriptions ${currentItemsCount}`,
-      duration: '1hr',
-      courseTime: '12/21/2019',
-      creationTime: moment('11/15/2019 9:00', 'M/D/YYYY H:mm').unix()
+      durationInMins: 300,
+      courseTime: Date.parse('01/29/2020 12:00'),
+      creationTime: Date.parse('11/15/2019 9:00'),
+      isTopRated: false
     });
+    this.actionStatus = `Added ${this.items[this.items.length - 1].title}`;
+  }
+
+  filterItem(searchText: string) {
+    this.items = searchText ? this.filterPipe.transform(this.items, searchText) : this.itemsService.getItems();
   }
 }

@@ -13,6 +13,10 @@ import { SearchCoursesComponent } from './modules/courses/search-courses/search-
 import { CourseItemComponent } from './modules/courses/course-item/course-item.component';
 import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { DurationPipe } from './core/pipes/duration.pipe';
+import { FormatCourseItemDirective } from './core/directives/format-course-item.directive';
+import { SortItemsPipe } from './core/pipes/sort-items.pipe';
+import { FilterItemsPipe } from './core/pipes/filter-items.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
     CourseListComponent,
     SearchCoursesComponent,
     CourseItemComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DurationPipe,
+    FormatCourseItemDirective,
+    SortItemsPipe,
+    FilterItemsPipe
   ],
   imports: [
     BrowserModule,

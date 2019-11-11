@@ -30,7 +30,6 @@ describe('SearchCoursesComponent', () => {
   });
 
   it('should create', () => {
-    const consoleSpy = spyOn(console, 'log');
     const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     inputElement.value = 'Unit test value';
 
@@ -42,7 +41,6 @@ describe('SearchCoursesComponent', () => {
 
     fixture.debugElement.query(By.css('button')).nativeElement.click();
     fixture.detectChanges();
-    expect(consoleSpy).toHaveBeenCalledWith('Searching Unit test value');
 
   });
 });

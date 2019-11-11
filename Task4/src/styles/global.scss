@@ -37,6 +37,7 @@ body {
     justify-content: space-around;
     align-items: flex-start;
     align-content: center;
+    min-width: $min-page-width;
 }
 
 @import './partials/buttons.scss';

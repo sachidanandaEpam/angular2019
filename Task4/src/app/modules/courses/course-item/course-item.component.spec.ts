@@ -5,6 +5,16 @@ import { By } from '@angular/platform-browser';
 import { CourseItem } from 'src/app/entities/course-item';
 import * as moment from 'moment';
 import { Component } from '@angular/core';
+import { DurationPipe } from 'src/app/core/pipes/duration.pipe';
+
+const testItem = {
+  id: 1,
+  title: 'Angular Program 2019',
+  description: 'Learn about where you can find course descriptions.',
+  durationInMins: 150,
+  courseTime: Date.parse('12/29/2019 1:00'),
+  creationTime: Date.parse('12/15/2019 9:00')
+};
 
 describe('CourseItemComponentClassTesting', () => {
   let component: CourseItemComponent;
@@ -18,14 +28,7 @@ describe('CourseItemComponentClassTesting', () => {
   });
 
   it('should delete course in class testing', () => {
-    const selectedItem: CourseItem = {
-      id: 1,
-      title: 'Angular Program 2019',
-      description: 'Learn about where you can find course descriptions.',
-      duration: '2hr 30min',
-      courseTime: '10/29/2019',
-      creationTime: moment('12/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    };
+    const selectedItem: CourseItem = testItem;
 
     component.item = selectedItem;
     component.deleteItem.subscribe((deletedItem: CourseItem) => expect(deletedItem).toBe(selectedItem));
@@ -33,14 +36,7 @@ describe('CourseItemComponentClassTesting', () => {
   });
 
   it('should edit course in class testing', () => {
-    const selectedItem: CourseItem = {
-      id: 1,
-      title: 'Angular Program 2019',
-      description: 'Learn about where you can find course descriptions.',
-      duration: '2hr 30min',
-      courseTime: '10/29/2019',
-      creationTime: moment('12/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    };
+    const selectedItem: CourseItem = testItem;
 
     component.item = selectedItem;
     component.editItem.subscribe((editedItem: CourseItem) => expect(editedItem).toBe(selectedItem));
@@ -55,14 +51,7 @@ describe('CourseItemComponentClassTesting', () => {
 class TestHostComponent {
   actionStatus = '';
 
-  item: CourseItem = {
-    id: 1,
-    title: 'Angular Program 2019',
-    description: 'Learn about where you can find course descriptions.',
-    duration: '2hr 30min',
-    courseTime: '10/29/2019',
-    creationTime: moment('12/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-  };
+  item: CourseItem = testItem;
 
   update(item: CourseItem, status: string) {
     if (status === 'deleted') {
@@ -79,7 +68,7 @@ describe('CourseItemComponentTestHostTesting', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseItemComponent, TestHostComponent]
+      declarations: [DurationPipe, CourseItemComponent, TestHostComponent]
     })
       .compileComponents();
   }));
@@ -97,9 +86,9 @@ describe('CourseItemComponentTestHostTesting', () => {
     const courseTime = fixture.debugElement.query(By.css('.course-time')).nativeElement;
     const description = fixture.debugElement.query(By.css('.description')).nativeElement;
 
-    expect(title.textContent).toEqual(`Video course: ${component.item.title}`);
-    expect(duration.textContent).toEqual(component.item.duration);
-    expect(courseTime.textContent).toEqual(component.item.courseTime);
+    expect(title.textContent).toEqual(`Video course: ${component.item.title.toUpperCase()}`);
+    expect(duration.textContent).toEqual('2 hr 30 min');
+    expect(courseTime.textContent).toEqual('Dec 15, 2019');
     expect(description.textContent).toEqual(component.item.description);
   });
 
@@ -124,7 +113,7 @@ describe('CourseItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseItemComponent]
+      declarations: [DurationPipe, CourseItemComponent]
     })
       .compileComponents();
   }));
@@ -133,14 +122,7 @@ describe('CourseItemComponent', () => {
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
 
-    component.item = {
-      id: 1,
-      title: 'Angular Program 2019',
-      description: 'Learn about where you can find course descriptions.',
-      duration: '2hr 30min',
-      courseTime: '10/29/2019',
-      creationTime: moment('12/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    };
+    component.item = testItem;
 
     fixture.detectChanges();
   });
@@ -189,14 +171,8 @@ describe('CourseItemComponent', () => {
   });
 
   it('should trigger ngChanges event', () => {
-    component.item = {
-      id: 2,
-      title: 'Angular Program 2019 2',
-      description: 'Learn about where you can find course descriptions..',
-      duration: '2hr 30min',
-      courseTime: '10/29/2019',
-      creationTime: moment('12/15/2019 9:00', 'M/D/YYYY H:mm').unix()
-    };
+    component.item = testItem;
+    component.item.id = 2;
 
     fixture.detectChanges();
     const title = fixture.debugElement.query(By.css('.heading')).nativeElement;
@@ -204,9 +180,9 @@ describe('CourseItemComponent', () => {
     const courseTime = fixture.debugElement.query(By.css('.course-time')).nativeElement;
     const description = fixture.debugElement.query(By.css('.description')).nativeElement;
 
-    expect(title.textContent).toEqual(`Video course: ${component.item.title}`);
-    expect(duration.textContent).toEqual(component.item.duration);
-    expect(courseTime.textContent).toEqual(component.item.courseTime);
+    expect(title.textContent).toEqual(`Video course: ${component.item.title.toUpperCase()}`);
+    expect(duration.textContent).toEqual('2 hr 30 min');
+    expect(courseTime.textContent).toEqual('Dec 15, 2019');
     expect(description.textContent).toEqual(component.item.description);
   });
 
@@ -217,9 +193,9 @@ describe('CourseItemComponent', () => {
     const description = fixture.debugElement.query(By.css('.description')).nativeElement;
 
     fixture.detectChanges();
-    expect(title.textContent).toEqual(`Video course: ${component.item.title}`);
-    expect(duration.textContent).toEqual(component.item.duration);
-    expect(courseTime.textContent).toEqual(component.item.courseTime);
+    expect(title.textContent).toEqual(`Video course: ${component.item.title.toUpperCase()}`);
+    expect(duration.textContent).toEqual('2 hr 30 min');
+    expect(courseTime.textContent).toEqual('Dec 15, 2019');
     expect(description.textContent).toEqual(component.item.description);
   });
 });

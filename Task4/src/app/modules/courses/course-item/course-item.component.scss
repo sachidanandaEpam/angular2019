@@ -13,9 +13,26 @@
     background-color: #ffffff;
     padding: 1em;
     margin: 1em 0em 1em 0em;
-    border: $color-blue solid thin;
     width: 100%;
 }
+
+.item-fresh {
+    border: $color-green solid 0.15em;
+}
+
+.item-released {
+    border: $color-blue solid 0.15em;
+}
+
+.item-top-rated {
+    background-color: $color-top-rated;
+}
+
+.item-top-rated h2.heading::after {
+    content: " *";
+    color: $color-red;
+}
+
 .description {
     display:flex;
 }

@@ -1,10 +1,11 @@
-<div class="item" *ngIf="item.creationTime < currentTime">
+<div
+    [ngClass]="{'item': true, 'item-fresh': item.isFresh, 'item-released': item.isReleased, 'item-top-rated': item.isTopRated}">
     <div class="item-left">
         <div class="item-header">
-            <h2 class="heading">Video course: {{item.title}}</h2>
+            <h2 class="heading">Video course: {{item.title | uppercase}}</h2>
             <div class="item-header-time">
-                <span class="course-duration">{{item.duration}}</span>
-                <span class="course-time">{{item.courseTime}}</span>
+                <span class="course-duration">{{item.durationInMins | duration}}</span>
+                <span class="course-time">{{item.creationTime | date:'mediumDate'}}</span>
             </div>
         </div>
         <div class="description">{{item.description}}</div>

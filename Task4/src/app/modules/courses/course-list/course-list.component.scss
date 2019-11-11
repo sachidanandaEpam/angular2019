@@ -5,9 +5,10 @@
     flex-direction: column;
     justify-content: space-around;
     margin: 3em 0;
+    width: 100%;
 }
 
-.add-new-course {
+.course-list-header {
     display: inherit;
     align-self: flex-end;
 }
@@ -16,6 +17,11 @@
     flex: 0 0 9em;
 }
 
+.action-status {
+    font-weight: 600;
+    font-size: 2em;
+    white-space: nowrap;
+}
 .load-more {
     display: flex;
     justify-content: center;
@@ -31,4 +37,5 @@
 .course-items {
     display: flex;
     flex-direction: column;
+    margin: 1em 0;
 }

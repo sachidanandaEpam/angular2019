@@ -1,16 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { CourseListComponent } from './course-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CourseItemComponent } from '../course-item/course-item.component';
+import { FilterItemsPipe } from 'src/app/core/pipes/filter-items.pipe';
+import { ItemsService } from 'src/app/core/services/items.service';
+import { SortItemsPipe } from 'src/app/core/pipes/sort-items.pipe';
+import { DurationPipe } from 'src/app/core/pipes/duration.pipe';
 
 describe('CourseListComponentClassTesting', () => {
   let component: CourseListComponent;
 
-  beforeEach(() => {
-    component = new CourseListComponent();
-  });
+  beforeEach(inject([ItemsService], (svc) => {
+    component = new CourseListComponent(new FilterItemsPipe(), svc);
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -72,8 +76,9 @@ describe('CourseListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseListComponent, CourseItemComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      declarations: [DurationPipe, SortItemsPipe, CourseListComponent, CourseItemComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [FilterItemsPipe, ItemsService]
     })
       .compileComponents();
   }));
@@ -90,17 +95,27 @@ describe('CourseListComponent', () => {
   });
 
   it('should edit course through button click', () => {
+    const sortedItems = component.items.sort(
+      (a, b) => {
+        return (a.creationTime > b.creationTime) ? 1 : ((a.creationTime < b.creationTime) ? -1 : 0);
+      });
+
     // trigger the click
     const btnEdit = fixture.debugElement.queryAll(By.css('.btn-edit'));
     btnEdit[0].nativeElement.click();
 
     const actionStatus = fixture.debugElement.query(By.css('.action-status')).nativeElement;
     fixture.detectChanges();
-    expect(actionStatus.textContent).toEqual(`Edited ${component.items[0].title}`);
+    expect(actionStatus.textContent).toEqual(`Edited ${sortedItems[0].title}`);
   });
 
   it('should delete course through button click', () => {
-    const itemToDelete = { ...component.items[0] };
+    const sortedItems = component.items.sort(
+      (a, b) => {
+        return (a.creationTime > b.creationTime) ? 1 : ((a.creationTime < b.creationTime) ? -1 : 0);
+      });
+
+    const itemToDelete = { ...sortedItems[0] };
     // trigger the click
     const btnDelete = fixture.debugElement.queryAll(By.css('.btn-delete'));
     btnDelete[0].nativeElement.click();
