@@ -1,0 +1,17 @@
+@import '_variables';
+
+:host {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+}
+
+.btn-search {
+    background-color: $color-green;
+    color: $color-white;
+}

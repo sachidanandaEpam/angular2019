@@ -1,0 +1,87 @@
+@import '_variables';
+
+:host {
+    display: flex;
+}
+
+.item {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 1px 24px 0 #12152314;
+    background-color: #ffffff;
+    padding: 1em;
+    margin: 1em 0em 1em 0em;
+    width: 100%;
+}
+
+.item-fresh {
+    border: $color-green solid 0.15em;
+}
+
+.item-released {
+    border: $color-blue solid 0.15em;
+}
+
+.item-top-rated {
+    background-color: $color-top-rated;
+}
+
+.item-top-rated h2.heading::after {
+    content: " *";
+    color: $color-red;
+}
+
+.description {
+    display:flex;
+}
+.item-left {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 7;
+    width: 100%;
+}
+.item-right {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 3;
+}
+
+.item-header {
+    display:flex;
+    align-self: flex-start;
+    align-items: baseline;
+    width: 100%;
+
+}
+
+.item-header-time {
+    display: flex;
+    flex-grow: 3;
+}
+.btn-edit {
+    background-color: $color-blue;
+    flex: 0 0 5em;
+}
+
+.btn-delete {
+    background-color: $color-blue;
+    flex: 0 0 5em;
+}
+
+.heading {
+    display: flex;
+    flex-grow: 7;
+    flex: 0 0 35em;
+}
+
+.course-duration {
+    padding: 0 1em;
+    flex: 0 0 10em;
+}
+
+.course-time {
+    padding: 0 1em;
+    flex: 0 0 10em;
+}

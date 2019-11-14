@@ -1,0 +1,24 @@
+@import './palette';
+
+$font-base-size: 11px;
+
+$max-page-width: 1240px;
+$min-page-width: 1080px;
+
+$input-lineheight: 1.75rem;
+$btn-lineheight: 0.85rem;
+
+// borders
+$border-radius-control: 3px;
+$border-width-button: 0px;
+$border-width-input: 1px;
+
+//hovers
+$hover-alpha: .6;
+
+
+// spacings
+$base-spacing: 1rem;
+
+// outline
+$focus-outline: $color-focus-outline auto 5px;
