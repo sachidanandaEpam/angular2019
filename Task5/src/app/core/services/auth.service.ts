@@ -5,7 +5,7 @@ import { ServiceResponse } from 'src/app/entities/service-response';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthorizationService {
+export class AuthService {
 
   constructor() { }
 

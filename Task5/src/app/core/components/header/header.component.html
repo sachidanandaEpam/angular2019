@@ -5,7 +5,7 @@
     </div>
 
     <div class="headerRight">
-        <button class="btn link btn-menu btn-menu-login">User Login</button>
-        <button class="btn link btn-menu btn-menu-logout">Log out</button>
+        <button class="btn link btn-menu btn-menu-login" routerLink="/login" *ngIf="!isLoggedIn">User Login</button>
+        <button class="btn link btn-menu btn-menu-logout" routerLink="/logout" *ngIf="isLoggedIn">Log out</button>
     </div>
 </div>

@@ -14,7 +14,8 @@
     width: 100%;
     margin: 0 .75em;
     font-weight: 500;
-    color: $color-primary-btn;
+    background-color: $color-green;
+    color: $color-white;
 }
 
 @include btn('link', $color-primary, transparent, transparent, true);

@@ -1,0 +1,39 @@
+@import '_variables';
+@import '_mixins';
+
+.formControllers {
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    min-width: $modal-min-width;
+}
+
+.formControllers > .formHeader {
+    color: $color-primary;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.formControllers > .formBody {
+    line-height: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.formControllers > .formFooter {
+    line-height: 2em;
+    display: flex;
+    flex-direction: row;
+    padding: 2em 0;
+}
+
+.formBody > .formElementRow {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+}
+
+.formBody .formElementLabel {
+    font-weight: bold;
+}
