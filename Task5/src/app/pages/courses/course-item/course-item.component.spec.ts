@@ -5,8 +5,8 @@ import { By } from '@angular/platform-browser';
 import { CourseItem } from 'src/app/entities/course-item';
 import * as moment from 'moment';
 import { Component } from '@angular/core';
-import { DurationPipe } from 'src/app/core/pipes/duration.pipe';
-import { FormatCourseItemDirective } from 'src/app/core/directives/format-course-item.directive';
+import { DurationPipe } from 'src/app/shared/pipes/duration.pipe';
+import { FormatCourseItemDirective } from 'src/app/shared/directives/format-course-item.directive';
 
 const testItem = {
   id: 1,
@@ -29,6 +29,18 @@ describe('CourseItemComponentClassTesting', () => {
   });
 
   it('should delete course in class testing', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    const selectedItem: CourseItem = testItem;
+
+    component.item = selectedItem;
+    component.deleteItem.subscribe((deletedItem: CourseItem) => expect(deletedItem).toBe(selectedItem));
+    component.deleteCourse();
+  });
+
+  it('should not delete course on cancel in class testing', () => {
+    spyOn(window, 'confirm').and.returnValue(false);
+
     const selectedItem: CourseItem = testItem;
 
     component.item = selectedItem;
@@ -94,10 +106,22 @@ describe('CourseItemComponentTestHostTesting', () => {
   });
 
   it('should delete course in host testing', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
+
     const btnDelete = fixture.debugElement.queryAll(By.css('.btn-delete'));
     btnDelete[0].nativeElement.click();
     fixture.detectChanges();
     expect(component.actionStatus).toEqual(`Deleted ${component.item.title}`);
+  });
+
+  it('should not delete course in host testing on cancel of confirm dialog', () => {
+    spyOn(window, 'confirm').and.returnValue(false);
+
+    const btnDelete = fixture.debugElement.queryAll(By.css('.btn-delete'));
+    btnDelete[0].nativeElement.click();
+    fixture.detectChanges();
+
+    expect(component.actionStatus).toEqual('');
   });
 
   it('should edit course in host testing', () => {
@@ -120,6 +144,7 @@ describe('CourseItemComponent', () => {
   }));
 
   beforeEach(() => {
+    spyOn(window, 'confirm').and.returnValue(true);
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
 

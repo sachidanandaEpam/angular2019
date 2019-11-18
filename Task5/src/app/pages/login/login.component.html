@@ -1,0 +1,25 @@
+<div class="page-container">
+    <div class="loginContainer">
+        <form class="form-controller" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-header">
+                <h2>Login</h2>
+            </div>
+            <div class="form-body">
+                <label class="form-element-label required" for="email">E-mail:</label>
+                <input type="email" id="email" placeholder="Enter email address" formControlName="email">
+                <app-app-field-display-error [displayError]="isFieldValid('email')"
+                    errorMsg="Please enter your email (admin@epam.com)">
+                </app-app-field-display-error>
+                <label class="form-element-label required" for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password" formControlName="password">
+                <app-app-field-display-error [displayError]="isFieldValid('password')"
+                    errorMsg="Password is required. (password)">
+                </app-app-field-display-error>
+            </div>
+            <div class="form-footer">
+                <button class="btn link" routerLink="/forgot-password" type="button">Forgot password?</button>
+                <button class="btn" [disabled]="!loginForm.valid">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

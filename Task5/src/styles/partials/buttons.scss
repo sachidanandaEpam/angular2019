@@ -18,6 +18,10 @@
     color: $color-white;
 }
 
+.btn:disabled {
+    background-color: $color-disabled;
+}
+
 @include btn('link', $color-primary, transparent, transparent, true);
 
 .link, .body-text a {

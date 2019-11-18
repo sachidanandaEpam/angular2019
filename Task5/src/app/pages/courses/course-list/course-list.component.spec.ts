@@ -4,17 +4,18 @@ import { CourseListComponent } from './course-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CourseItemComponent } from '../course-item/course-item.component';
-import { FilterItemsPipe } from 'src/app/core/pipes/filter-items.pipe';
+import { FilterItemsPipe } from 'src/app/shared/pipes/filter-items.pipe';
 import { ItemsService } from 'src/app/core/services/items.service';
-import { SortItemsPipe } from 'src/app/core/pipes/sort-items.pipe';
-import { DurationPipe } from 'src/app/core/pipes/duration.pipe';
-import { FormatCourseItemDirective } from 'src/app/core/directives/format-course-item.directive';
+import { SortItemsPipe } from 'src/app/shared/pipes/sort-items.pipe';
+import { DurationPipe } from 'src/app/shared/pipes/duration.pipe';
+import { FormatCourseItemDirective } from 'src/app/shared/directives/format-course-item.directive';
 
 describe('CourseListComponentClassTesting', () => {
   let component: CourseListComponent;
 
   beforeEach(inject([ItemsService], (svc) => {
     component = new CourseListComponent(new FilterItemsPipe(), svc);
+    spyOn(window, 'confirm').and.returnValue(true);
   }));
 
   it('should create', () => {
@@ -29,7 +30,7 @@ describe('CourseListComponentClassTesting', () => {
     const initialItems = component.items.length;
     const deletedItem = { ...component.items[1] };
     component.delete(deletedItem);
-    expect(component.items.length).toEqual(initialItems - 1);
+    expect(component.getItems().length).toEqual(initialItems - 1);
     expect(component.items.indexOf(deletedItem)).toEqual(-1);
     expect(component.actionStatus).toEqual(`Deleted ${deletedItem.title}`);
   });
@@ -67,7 +68,7 @@ describe('CourseListComponentClassTesting', () => {
     component.delete(deletedItem);
     expect(component.items.length).toEqual(initialItems);
     expect(component.items.filter(e => e.title === deletedItem.title).length).toEqual(1);
-    expect(component.actionStatus).toEqual(`${deletedItem.title} not found. No action taken`);
+    expect(component.actionStatus).toEqual(`Deletion of ${deletedItem.title} failed.`);
   });
 });
 
@@ -85,6 +86,8 @@ describe('CourseListComponent', () => {
   }));
 
   beforeEach(() => {
+    spyOn(window, 'confirm').and.returnValue(true);
+
     fixture = TestBed.createComponent(CourseListComponent);
     component = fixture.componentInstance;
     component.ngOnInit();
@@ -111,6 +114,7 @@ describe('CourseListComponent', () => {
   });
 
   it('should delete course through button click', () => {
+
     const sortedItems = component.items.sort(
       (a, b) => {
         return (a.creationTime > b.creationTime) ? 1 : ((a.creationTime < b.creationTime) ? -1 : 0);

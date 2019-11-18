@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ModuleWithComponentFactories } from '@angular/core';
 import { CourseItem } from 'src/app/entities/course-item';
-import { FilterItemsPipe } from 'src/app/core/pipes/filter-items.pipe';
+import { FilterItemsPipe } from 'src/app/shared/pipes/filter-items.pipe';
 import { ItemsService } from 'src/app/core/services/items.service';
 
 @Component({
@@ -19,34 +19,32 @@ export class CourseListComponent implements OnInit {
     this.items = this.itemsService.get();
   }
 
+  getItems(): CourseItem[] {
+    return this.itemsService.get();
+  }
+
   delete(inputItem: CourseItem) {
-    const selectedItem = this.items.filter(e => e.id === inputItem.id);
-    const itemIndex = selectedItem.length > 0 ? this.items.indexOf(selectedItem[0]) : -1;
-    if (itemIndex >= 0) {
+    const response = this.itemsService.delete(inputItem);
+    if (response.statusCode < 400) {
       this.actionStatus = `Deleted ${inputItem.title}`;
-      this.items.splice(itemIndex, 1);
     } else {
-      this.actionStatus = `${inputItem.title} not found. No action taken`;
+      this.actionStatus = `Deletion of ${inputItem.title} failed.`;
     }
   }
 
   update(inputItem: CourseItem) {
-    const selectedItem = this.items.filter(e => e.id === inputItem.id);
-    const itemIndex = selectedItem.length > 0 ? this.items.indexOf(selectedItem[0]) : -1;
-    if (itemIndex >= 0) {
+    const response = this.itemsService.update(inputItem);
+    if (response.statusCode < 400) {
       this.actionStatus = `Edited ${inputItem.title}`;
-      this.items[itemIndex] = inputItem;
     } else {
       this.actionStatus = `${inputItem.title} not found. No action taken`;
     }
   }
 
   addCourse() {
-    const currentItemsCount = this.items.length;
-    this.items.push({
-      id: currentItemsCount,
-      title: `Typescript Introduction ${currentItemsCount}`,
-      description: `Learn about where you can find course descriptions ${currentItemsCount}`,
+    this.itemsService.create({
+      title: `Typescript Introduction`,
+      description: `Learn about where you can find course descriptions`,
       durationInMins: 300,
       courseTime: Date.parse('01/29/2020 12:00'),
       creationTime: Date.parse('11/15/2019 9:00'),

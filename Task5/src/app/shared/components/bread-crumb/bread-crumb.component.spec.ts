@@ -1,12 +1,35 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BreadCrumbComponent } from './bread-crumb.component';
+import { AuthService } from 'src/app/core/services/auth.service';
+
+let authServiceSpy: {
+  isAuthenticated: jasmine.Spy
+};
 
 describe('BreadCrumbComponentClassTesting', () => {
   let component: BreadCrumbComponent;
+  let fixture: ComponentFixture<BreadCrumbComponent>;
+
+  beforeEach(async(() => {
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['isAuthenticated']);
+
+    TestBed.configureTestingModule({
+      declarations: [BreadCrumbComponent],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: authServiceSpy
+        }
+      ]
+    })
+      .compileComponents();
+  }));
 
   beforeEach(() => {
-    component = new BreadCrumbComponent();
+    fixture = TestBed.createComponent(BreadCrumbComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {

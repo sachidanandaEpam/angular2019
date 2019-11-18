@@ -1,5 +1,5 @@
 export interface CourseItem {
-    id: number;
+    id?: number;
     title: string;
     durationInMins: number;
     description: string;

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './core/components/page-not-found';
-import { CoursesComponent } from './modules/courses/courses.component';
-import { LoginComponent } from './modules/authentication/login/login.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found';
+import { CoursesComponent } from './pages/courses/courses.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 const routes: Routes = [

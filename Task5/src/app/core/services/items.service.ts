@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from 'src/app/entities/course-item';
 import { ServiceResponse } from 'src/app/entities/service-response';
+import { resolve } from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,11 @@ import { ServiceResponse } from 'src/app/entities/service-response';
 export class ItemsService {
 
   private items: CourseItem[];
+
+  defaultSuccessResponse = {
+    status: 'success',
+    statusCode: 200
+  };
 
   constructor() {
     this.items = [{
@@ -43,7 +49,7 @@ export class ItemsService {
   }
 
   get(): CourseItem[] {
-    return Object.assign([], this.items);
+    return this.items;
   }
 
   getById(id: number = 0): CourseItem {
@@ -51,14 +57,35 @@ export class ItemsService {
   }
 
   create(item: CourseItem): ServiceResponse {
-    return null;
+    const currentItemsCount = this.items.length;
+    item.id = currentItemsCount;
+    this.items.push(item);
+    return this.defaultSuccessResponse;
   }
 
-  update(item: CourseItem): ServiceResponse {
-    return null;
+  update(inputItem: CourseItem): ServiceResponse {
+    const response = this.defaultSuccessResponse;
+    const selectedItem = this.items.filter(e => e.id === inputItem.id);
+    const itemIndex = selectedItem.length > 0 ? this.items.indexOf(selectedItem[0]) : -1;
+    if (itemIndex >= 0) {
+      this.items[itemIndex] = inputItem;
+    } else {
+      response.status = 'Failed';
+      response.statusCode = 400;
+    }
+    return response;
   }
 
-  delete(item: CourseItem): ServiceResponse {
-    return null;
+  delete(inputItem: CourseItem): ServiceResponse {
+    const response = this.defaultSuccessResponse;
+    const selectedItem = this.items.filter(e => e.id === inputItem.id);
+    const itemIndex = selectedItem.length > 0 ? this.items.indexOf(selectedItem[0]) : -1;
+    if (itemIndex >= 0) {
+      this.items.splice(itemIndex, 1);
+    } else {
+      response.status = 'Failed';
+      response.statusCode = 400;
+    }
+    return response;
   }
 }

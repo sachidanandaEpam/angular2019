@@ -19,7 +19,9 @@ export class CourseItemComponent implements OnChanges {
   }
 
   deleteCourse() {
-    this.deleteItem.emit(this.item);
+    if (confirm(`Do you really want to delete the course '${this.item.title}'?`)) {
+      this.deleteItem.emit(this.item);
+    }
   }
 
   editCourse() {
