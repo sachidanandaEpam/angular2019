@@ -107,10 +107,12 @@ describe('HeaderComponent', () => {
 
   it('should create and set header message', () => {
     expect(component).toBeTruthy();
-    const headerMessage = fixture.debugElement.query(By.css('.header-message')).nativeElement;
-
     const isAuthenticated = true;
     authServiceSpy.isAuthenticated.and.returnValue(isAuthenticated);
+
+    fixture.detectChanges();
+
+    const headerMessage = fixture.debugElement.query(By.css('.header-message')).nativeElement;
 
     expect(headerMessage.textContent).toEqual(`Welcome ${testUser.lastName}, ${testUser.firstName}`);
     expect(component.isAuthenticated()).toEqual(isAuthenticated);

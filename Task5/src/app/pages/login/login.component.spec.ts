@@ -67,7 +67,7 @@ describe('LoginComponentClassTesting', () => {
     expect(component.isFieldValid('email')).toBeFalsy();
 
     component.loginForm.controls.email.setValue('test@test.com');
-    //expect(component.isFieldValid('email')).toBe(true);
+    // expect(component.isFieldValid('email')).toBe(true);
   });
 
 });
