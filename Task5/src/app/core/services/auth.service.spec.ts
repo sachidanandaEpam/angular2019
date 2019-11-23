@@ -4,6 +4,12 @@ import { AuthService } from './auth.service';
 import { AppStorageService } from './app-storage.service';
 import { User } from 'src/app/entities/user';
 
+const allowedUser = {
+  id: 1,
+  firstName: 'Admin',
+  lastName: 'User'
+};
+
 describe('AuthService', () => {
   let service: AuthService;
   beforeEach(() => {
@@ -22,7 +28,8 @@ describe('AuthService', () => {
 
   it('should login and return response', () => {
     let response = service.login('admin@epam.com', 'password');
-    expect(response.userToken).toEqual(service.adminUser.token);
+    expect(response.userToken).toBeDefined();
+    expect(response.statusCode).toEqual(200);
 
     response = service.login('admin@epam', 'password');
     expect(response.userToken).toBeFalsy();
@@ -41,7 +48,7 @@ describe('AuthService', () => {
     service.login('admin@epam.com', 'password');
     user = service.getUserInfo();
     expect(user).toBeTruthy();
-    expect(user.token).toEqual(service.adminUser.token);
+    expect(user.firstName).toEqual(allowedUser.firstName);
   });
 
   it('should check isAuthenticated user', () => {

@@ -7,15 +7,7 @@ import * as moment from 'moment';
 import { Component } from '@angular/core';
 import { DurationPipe } from 'src/app/shared/pipes/duration.pipe';
 import { FormatCourseItemDirective } from 'src/app/shared/directives/format-course-item.directive';
-
-const testItem = {
-  id: 1,
-  title: 'Angular Program 2019',
-  description: 'Learn about where you can find course descriptions.',
-  durationInMins: 150,
-  courseTime: Date.parse('12/29/2019 1:00'),
-  creationTime: Date.parse('12/15/2019 9:00')
-};
+import { testItem } from 'src/app/mock/courses-mock';
 
 describe('CourseItemComponentClassTesting', () => {
   let component: CourseItemComponent;

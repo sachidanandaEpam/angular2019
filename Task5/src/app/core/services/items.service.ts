@@ -65,10 +65,14 @@ export class ItemsService {
 
   update(inputItem: CourseItem): ServiceResponse {
     const response = this.defaultSuccessResponse;
-    const selectedItem = this.items.filter(e => e.id === inputItem.id);
-    const itemIndex = selectedItem.length > 0 ? this.items.indexOf(selectedItem[0]) : -1;
-    if (itemIndex >= 0) {
-      this.items[itemIndex] = inputItem;
+    const selectedItem = this.items.find(e => e.id === inputItem.id);
+    if (selectedItem !== undefined) {
+      selectedItem.title = inputItem.title;
+      selectedItem.courseTime = inputItem.courseTime;
+      selectedItem.creationTime = inputItem.creationTime;
+      selectedItem.description = inputItem.description;
+      selectedItem.durationInMins = inputItem.durationInMins;
+      selectedItem.isTopRated = inputItem.isTopRated;
     } else {
       response.status = 'Failed';
       response.statusCode = 400;
@@ -78,8 +82,8 @@ export class ItemsService {
 
   delete(inputItem: CourseItem): ServiceResponse {
     const response = this.defaultSuccessResponse;
-    const selectedItem = this.items.filter(e => e.id === inputItem.id);
-    const itemIndex = selectedItem.length > 0 ? this.items.indexOf(selectedItem[0]) : -1;
+    const selectedItem = this.items.find(e => e.id === inputItem.id);
+    const itemIndex = selectedItem !== undefined ? this.items.indexOf(selectedItem) : -1;
     if (itemIndex >= 0) {
       this.items.splice(itemIndex, 1);
     } else {

@@ -10,32 +10,31 @@ import { AppStorageService } from './app-storage.service';
 })
 export class AuthService {
 
-  adminUser = {
+  private allowedUsers = [{
     id: 1,
+    userName: 'admin@epam.com',
+    password: 'password',
     firstName: 'Admin',
     lastName: 'User',
     token: uuid()
-  };
+  }];
 
   loginUserKey = 'LoggedInUserId';
 
   constructor(private storageService: AppStorageService) { }
 
-  public login(userName: string, password: string): AuthResponse {
+  public login(inputUserName: string, inputPassword: string): AuthResponse {
     const response = new AuthResponse();
-    let user: User = null;
-    if (userName === 'admin@epam.com' && password === 'password') {
-      user = this.adminUser;
-    }
-    if (!user) {
-      response.status = 'Login Failed';
-      response.statusCode = 401;
-    } else {
+
+    const userMatch = this.allowedUsers.find(e => e.userName === inputUserName && e.password === inputPassword);
+    if (userMatch !== undefined) {
       response.status = 'Successful';
       response.statusCode = 200;
-      response.userToken = user.token;
-
-      this.storageService.set(`${this.loginUserKey}`, user);
+      response.userToken = userMatch.token;
+      this.storageService.set(`${this.loginUserKey}`, userMatch);
+    } else {
+      response.status = 'Login Failed';
+      response.statusCode = 401;
     }
     console.log(response);
     return response;
