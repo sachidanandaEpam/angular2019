@@ -1,0 +1,16 @@
+<div [appFormatCourseItem]="item" [ngClass]="{'item': true, 'item-top-rated': item.isTopRated}">
+    <div class="item-left">
+        <div class="item-header">
+            <h2 class="heading">Video course: {{item.title | uppercase}}</h2>
+            <div class="item-header-time">
+                <span class="course-duration">{{item.durationInMins | duration}}</span>
+                <span class="course-time">{{item.creationTime | date:'mediumDate'}}</span>
+            </div>
+        </div>
+        <div class="description">{{item.description}}</div>
+    </div>
+    <div class="item-right">
+        <button (click)="editCourse()" class="btn btn-edit">Edit</button>
+        <button (click)="deleteCourse()" class="btn btn-delete">Delete</button>
+    </div>
+</div>
