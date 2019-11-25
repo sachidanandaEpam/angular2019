@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CourseItem } from 'src/app/entities/course-item';
-import { ServiceResponse } from 'src/app/entities/service-response';
+import { CourseItem } from 'src/app/models/course-item';
+import { ServiceResponse } from 'src/app/models/service-response';
 import { resolve } from 'url';
 
 @Injectable({

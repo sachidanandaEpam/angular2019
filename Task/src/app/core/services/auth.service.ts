@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { AuthResponse } from 'src/app/entities/auth-response';
-import { ServiceResponse } from 'src/app/entities/service-response';
-import { User } from 'src/app/entities/user';
+import { AuthResponse } from 'src/app/models/auth-response';
+import { ServiceResponse } from 'src/app/models/service-response';
+import { User } from 'src/app/models/user';
 import { v4 as uuid } from 'uuid';
 import { SessionService } from './session.service';
 

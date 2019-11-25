@@ -5,5 +5,6 @@ export interface CourseItem {
     description: string;
     courseTime: number;
     creationTime: number;
+    authors?: string[];
     isTopRated?: boolean;
 }

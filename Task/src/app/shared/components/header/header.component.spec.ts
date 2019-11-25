@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
-import { AppStorageService } from 'src/app/core/services/app-storage.service';
 
 let authServiceSpy: {
   login: jasmine.Spy,

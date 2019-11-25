@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-field-display-error',
-  templateUrl: './app-field-display-error.component.html',
-  styleUrls: ['./app-field-display-error.component.scss']
+  selector: 'app-validation',
+  templateUrl: './validation.component.html',
+  styleUrls: ['./validation.component.scss']
 })
 export class AppFieldDisplayErrorComponent {
 

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CourseItem } from 'src/app/entities/course-item';
+import { CourseItem } from 'src/app/models/course-item';
 import * as _ from 'lodash';
 
 @Pipe({

@@ -1,13 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CourseItemComponent } from './course-item.component';
-import { By } from '@angular/platform-browser';
-import { CourseItem } from 'src/app/entities/course-item';
-import * as moment from 'moment';
 import { Component } from '@angular/core';
-import { DurationPipe } from 'src/app/shared/pipes/duration.pipe';
-import { FormatCourseItemDirective } from 'src/app/shared/directives/format-course-item.directive';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { testItem } from 'src/app/mock/courses-mock';
+import { CourseItem } from 'src/app/models/course-item';
+import { FormatCourseItemDirective } from 'src/app/shared/directives/format-course-item.directive';
+import { DurationPipe } from 'src/app/shared/pipes/duration.pipe';
+import { CourseItemComponent } from './course-item.component';
+
 
 describe('CourseItemComponentClassTesting', () => {
   let component: CourseItemComponent;

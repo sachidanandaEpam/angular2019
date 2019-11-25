@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { CourseListComponent } from './course-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { CourseItemComponent } from '../course-item/course-item.component';
+import { CourseItemComponent } from '../../../shared/components/course-item/course-item.component';
 import { FilterItemsPipe } from 'src/app/shared/pipes/filter-items.pipe';
 import { ItemsService } from 'src/app/core/services/items.service';
 import { SortItemsPipe } from 'src/app/shared/pipes/sort-items.pipe';

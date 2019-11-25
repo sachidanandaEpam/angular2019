@@ -20,18 +20,19 @@
 
 .btn:disabled {
     background-color: $color-disabled;
+    color: #a8a9b4;
 }
 
-@include btn('link', $color-primary, transparent, transparent, true);
+@include btn('link', $color-link, transparent, transparent, true);
 
 .link, .body-text a {
     background: none;
     border: none;
-    color: $color-primary;
+    color: $color-link;
     cursor: pointer;
     padding: 0;
     text-decoration: none;
     transition: color 200ms;
 
-    @include link($color-primary);
+    @include link($color-link);
 }

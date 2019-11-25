@@ -1,6 +1,5 @@
 import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { CourseItem } from 'src/app/entities/course-item';
+import { CourseItem } from 'src/app/models/course-item';
 import * as moment from 'moment';
 
 @Directive({

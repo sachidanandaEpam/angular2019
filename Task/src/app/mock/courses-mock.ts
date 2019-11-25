@@ -1,4 +1,4 @@
-import { CourseItem } from '../entities/course-item';
+import { CourseItem } from '../models/course-item';
 
 export const testItem: CourseItem = {
     id: 1,

@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-import { AppStorageService } from './app-storage.service';
-import { User } from 'src/app/entities/user';
+import { SessionService } from './session.service';
 
 const allowedUser = {
   id: 1,
@@ -16,7 +15,7 @@ describe('AuthService', () => {
     sessionStorage.clear();
     TestBed.configureTestingModule({
       providers: [
-        AppStorageService
+        SessionService
       ]
     });
     service = TestBed.get(AuthService);

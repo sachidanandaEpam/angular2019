@@ -2,12 +2,12 @@
 
 <div class="course-list-header">
     <div class="action-status">{{actionStatus}}</div>
-    <button (click)="addCourse()" class="btn btn-add-course"> + Add course</button>
+    <button class="btn btn-add-course" routerLink="/course/add"> + Add course</button>
 </div>
 
 <div *ngIf="items?.length > 0" class="course-items">
     <app-course-item *ngFor="let item of items | orderBy:'creationTime':'asc'" [item]="item"
-        (deleteItem)="delete($event)" (editItem)="update($event)">
+        (deleteItem)="delete($event)">
     </app-course-item>
 </div>
 <div *ngIf="items?.length == 0" class="course-items action-status ">

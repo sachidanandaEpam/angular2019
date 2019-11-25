@@ -1,4 +1,4 @@
-@import '../../../styles/_variables';
+@import '../../../../styles/_variables';
 
 :host {
     display: flex;
@@ -6,7 +6,7 @@
     justify-items: center;
 }
 
-.login-container {
+.item-details-container {
     align-self: center;
     display: flex;
     align-items: center;
@@ -16,4 +16,5 @@
     background-color: #ffffff;
     padding: 2em;
     margin: 2em;
+    width: 100%;
 }

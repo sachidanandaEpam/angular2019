@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components/page-not-found';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CourseItemDetailsComponent } from './shared/components/course-item-details/course-item-details.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,14 @@ const routes: Routes = [
   {
     path: 'courses',
     component: CoursesComponent
+  },
+  {
+    path: 'course/edit',
+    component: CourseItemDetailsComponent
+  },
+  {
+    path: 'course/add',
+    component: CourseItemDetailsComponent
   },
   {
     path: 'login',
