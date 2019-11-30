@@ -1,0 +1,38 @@
+@import '_variables';
+@import '_mixins';
+
+.btn {
+    border-radius: $border-radius-control;
+    border: $border-width-button solid;
+    cursor: pointer;
+    display: inline-block;
+    line-height: $btn-lineheight;
+    padding: 1rem 1.15rem;
+    text-align: center;
+    text-decoration: none;
+    transition: color 200ms,background-color 500ms,border-color 500ms;
+    width: 100%;
+    margin: 0 .75em;
+    font-weight: 500;
+    background-color: $color-green;
+    color: $color-white;
+}
+
+.btn:disabled {
+    background-color: $color-disabled;
+    color: #a8a9b4;
+}
+
+@include btn('link', $color-link, transparent, transparent, true);
+
+.link, .body-text a {
+    background: none;
+    border: none;
+    color: $color-link;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    transition: color 200ms;
+
+    @include link($color-link);
+}

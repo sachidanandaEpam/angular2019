@@ -1,0 +1,50 @@
+<div class="page-container">
+    <div class="item-details-container">
+        <form class="form-controller" [formGroup]="itemDetailsForm" (ngSubmit)="onSubmit()">
+            <fieldset class="form-fieldset">
+                <legend class="form-header">New / Edit Course</legend>
+                <div class="form-field">
+                    <label for="title">Title:
+                        <span class="required"></span>
+                        <input type="text" placeholder="Enter Title" id="title" formControlName="title">
+                        <app-validation [displayError]="isFieldValid('email')"
+                            errorMsg="Please enter your email (admin@epam.com)">
+                        </app-validation>
+                    </label>
+                </div>
+                <div class="form-field">
+                    <label for="description">Description:
+                        <span class="required"></span>
+                        <textarea placeholder="Enter course description" id="description" rows="5"
+                            formControlName="description"></textarea>
+                        <app-validation [displayError]="isFieldValid('email')"
+                            errorMsg="Please enter your email (admin@epam.com)">
+                        </app-validation>
+                    </label>
+                </div>
+                <div class="form-field form-field-quarter">
+                    <label for="">Date:
+                        <span class="required"></span>
+                        <app-date-picker></app-date-picker>
+                    </label>
+                </div>
+                <div class="form-field form-field-quarter">
+                    <label for="">Durations:
+                        <span class="required"></span>
+                        <app-durations></app-durations>
+                    </label>
+                </div>
+                <div class="form-field form-field-half">
+                    <label for="">Authors:
+                        <span class="required"></span>
+                        <app-users-picker></app-users-picker>
+                    </label>
+                </div>
+            </fieldset>
+            <div class="form-footer">
+                <button class="btn" type="reset">Cancel</button>
+                <button class="btn" [disabled]="!itemDetailsForm.valid">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+@import '../../../../styles/_variables';
+
+.header {
+  background-color: #414452;
+  display: flex;
+  flex-direction: row;
+  height: 5em;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+  color: #c0c3ce;
+}
+
+.header .headerLeft {
+  display: flex;
+  padding-left: 3em;
+  justify-content: flex-start;
+  flex-grow: 9;
+}
+
+.header .headerRight {
+  align-items: flex-end;
+  display: flex;
+  flex-grow: 1;
+}
+
+.header-title {
+  display:flex;
+  padding: 0 1em;
+}
+
+.header-message {
+  align-self: center;
+}
+
+.btn-menu {
+  display: inline-flex;
+  margin: 0;
+  color: $color-white;
+  line-height: 1.25em;
+}
+
+.btn-menu-login {
+    background: url('/assets/images/ic-user.svg') left center no-repeat;
+    padding: 0 1.25em;
+}
+
+.btn-menu-logout {
+  background: url('/assets/images/ic-exit.svg') left center no-repeat;
+  padding: 0 1.5em;
+}

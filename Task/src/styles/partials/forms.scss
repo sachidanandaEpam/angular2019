@@ -1,0 +1,58 @@
+@import '_variables';
+@import '_mixins';
+
+.form-controller {
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-fieldset {
+    display: flex;
+    border: 0 none;
+}
+
+.form-fieldset > .form-header {
+    color: $color-primary;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.form-controller > .form-footer {
+    line-height: 2em;
+    display: flex;
+    flex-direction: row;
+    padding: 2em 0;
+}
+
+.form-fieldset > .form-field {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em 0;
+}
+
+.form-field-half {
+    width: 50%;
+}
+
+.form-field-quarter {
+    width: 25%;
+}
+
+.form-field > label {
+    font-weight: bold;
+    width:100%;
+    line-height: 2em;
+    font-size: 1em;
+}
+
+.form-field label .required::after {
+    content: "* required";
+    color: #6c7283;
+    font-size: 0.8em;
+}
