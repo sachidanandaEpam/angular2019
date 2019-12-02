@@ -1,3 +1,2 @@
-<input type="text" formControlName="title" required>
-<app-validation errorMsg="Please select users">
-</app-validation>
+<input [type]="formFieldItem.type" [id]="formFieldItem.name" [placeholder]="formFieldItem.hint"
+    [required]="!formFieldItem.optional" [(ngModel)]="value" [readonly]="formFieldItem.readonly">

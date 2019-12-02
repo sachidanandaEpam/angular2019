@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { FormFieldItem } from 'src/app/models/form-field-item';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,27 @@ export class LoginComponent implements OnInit {
   @Output() loggedIn = new EventEmitter<User>();
 
   loginForm: FormGroup;
-  private submitted: boolean;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
+  private loginFields: FormFieldItem[];
+
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+    this.loginFields = [{
+      cssClass: 'form-field',
+      label: 'Email',
+      optional: false,
+      name: 'email',
+      hint: 'Enter email address',
+      type: 'email'
+    },
+    {
+      cssClass: 'form-field',
+      label: 'Password',
+      optional: false,
+      name: 'password',
+      hint: 'Enter password',
+      type: 'password'
+    }];
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -26,18 +45,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  isFieldValid(field: string) {
-    return (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
-      (this.loginForm.get(field).untouched && this.submitted);
-  }
-
   onSubmit() {
-    this.submitted = true;
     if (this.loginForm.valid) {
       const response = this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
       if (response.statusCode === 200) {
         this.loggedIn.emit(this.authService.getUserInfo());
-        this.router.navigate(['/courses']);
+        this.router.navigate(['/']);
       }
     }
   }

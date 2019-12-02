@@ -35,30 +35,6 @@ describe('CourseListComponentClassTesting', () => {
     expect(component.actionStatus).toEqual(`Deleted ${deletedItem.title}`);
   });
 
-  it('should edit in class testing', () => {
-    component.ngOnInit();
-    const initialItems = component.items.length;
-    const editedItem = { ...component.items[1] };
-    editedItem.title = 'Updating title to test';
-    component.update(editedItem);
-    expect(component.items.length).toEqual(initialItems);
-    expect(component.items[1].title).toEqual(editedItem.title);
-    expect(component.actionStatus).toEqual(`Edited ${editedItem.title}`);
-  });
-
-  it('should not edit and not found in class testing', () => {
-    component.ngOnInit();
-    const initialItems = component.items.length;
-
-    const editedItem = { ...component.items[1] };
-    editedItem.id = component.items.length + 1;
-    editedItem.title = 'Reset to some title';
-    component.update(editedItem);
-    expect(component.items.length).toEqual(initialItems);
-    expect(component.items.filter(e => e.title === editedItem.title).length).toEqual(0);
-    expect(component.actionStatus).toEqual(`${editedItem.title} not found. No action taken`);
-  });
-
   it('should not delete and not found in class testing', () => {
     component.ngOnInit();
     const initialItems = component.items.length;
@@ -127,13 +103,5 @@ describe('CourseListComponent', () => {
     const actionStatus = fixture.debugElement.query(By.css('.action-status')).nativeElement;
     fixture.detectChanges();
     expect(actionStatus.textContent).toEqual(`Deleted ${itemToDelete.title}`);
-  });
-
-  it('should add course', () => {
-    const initialItemLength = component.items.length;
-    component.addCourse();
-    fixture.detectChanges();
-
-    expect(component.items.length).toEqual(initialItemLength + 1);
   });
 });

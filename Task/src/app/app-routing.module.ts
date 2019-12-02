@@ -4,25 +4,54 @@ import { PageNotFoundComponent } from './shared/components/page-not-found';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CourseItemDetailsComponent } from './shared/components/course-item-details/course-item-details.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    redirectTo: '/courses',
+    pathMatch: 'full',
+    data: {
+      breadcrumb: 'Home'
+    }
   },
   {
     path: 'courses',
-    component: CoursesComponent
-  },
-  {
-    path: 'course/edit',
-    component: CourseItemDetailsComponent
-  },
-  {
-    path: 'course/add',
-    component: CourseItemDetailsComponent
+    canActivate: [AuthGuard],
+    data: {
+      breadcrumb: 'Courses'
+    },
+    children: [
+      { path: '', component: CoursesComponent },
+      {
+        path: 'new', component: CourseItemDetailsComponent,
+        data: {
+          breadcrumb: 'New'
+        }
+      },
+      {
+        path: ':id',
+        data: {
+          breadcrumb: 'CourseName'
+        },
+        children: [
+          { path: '', redirectTo: 'detail', pathMatch: 'full' },
+          {
+            path: 'edit', component: CourseItemDetailsComponent,
+            data: {
+              breadcrumb: 'Edit'
+            }
+          },
+          {
+            path: 'detail', component: CourseItemDetailsComponent,
+            data: {
+              breadcrumb: 'Detail'
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     path: 'login',

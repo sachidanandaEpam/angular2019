@@ -24,7 +24,8 @@ export class ItemsService {
       durationInMins: 150,
       courseTime: Date.parse('11/15/2019 12:00'),
       creationTime: Date.parse('11/10/2019 9:00'),
-      isTopRated: true
+      isTopRated: true,
+      authors: ['Sachidananda Panda']
     },
     {
       id: 2,
@@ -34,7 +35,8 @@ export class ItemsService {
       durationInMins: 60,
       courseTime: Date.parse('11/29/2019 23:00'),
       creationTime: Date.parse('10/15/2019 9:00'),
-      isTopRated: false
+      isTopRated: false,
+      authors: ['Sachidananda Panda']
     },
     {
       id: 3,
@@ -44,7 +46,8 @@ export class ItemsService {
       durationInMins: 45,
       courseTime: Date.parse('12/29/2019 1:00'),
       creationTime: Date.parse('12/15/2019 9:00'),
-      isTopRated: false
+      isTopRated: false,
+      authors: ['Sachidananda Panda']
     }];
   }
 
@@ -53,7 +56,7 @@ export class ItemsService {
   }
 
   getById(id: number = 0): CourseItem {
-    return null;
+    return this.items.find(e => e.id === id);
   }
 
   create(item: CourseItem): ServiceResponse {
