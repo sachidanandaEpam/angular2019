@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-import { AppFieldDisplayErrorComponent } from 'src/app/shared/components/validation/validation.component';
+import { ValidationErrorDisplayComponent } from 'src/app/shared/components/validation/validation-error-display.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ describe('LoginComponentClassTesting', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginComponent, AppFieldDisplayErrorComponent],
+      declarations: [LoginComponent, ValidationErrorDisplayComponent],
       imports: [ReactiveFormsModule, FormsModule],
       providers: [
         {
@@ -59,15 +59,4 @@ describe('LoginComponentClassTesting', () => {
     component.onSubmit();
     expect(component.loginForm.valid).toBeFalsy();
   });
-
-  it('should check field validity using form', () => {
-    expect(component.isFieldValid('email')).toBeFalsy();
-
-    component.loginForm.controls.email.setValue('test');
-    expect(component.isFieldValid('email')).toBeFalsy();
-
-    component.loginForm.controls.email.setValue('test@test.com');
-    // expect(component.isFieldValid('email')).toBe(true);
-  });
-
 });

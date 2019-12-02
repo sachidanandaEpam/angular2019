@@ -4,6 +4,8 @@ import { ServiceResponse } from 'src/app/models/service-response';
 import { User } from 'src/app/models/user';
 import { v4 as uuid } from 'uuid';
 import { SessionService } from './session.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +22,10 @@ export class AuthService {
   }];
 
   loginUserKey = 'LoggedInUserId';
+  // tslint:disable-next-line: variable-name
+  private _isAuthenticated$: boolean;
 
-  constructor(private sessionService: SessionService) { }
+  constructor(private sessionService: SessionService, private router: Router) { }
 
   public login(inputUserName: string, inputPassword: string): AuthResponse {
     const response = new AuthResponse();
@@ -51,10 +55,17 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return this.getUserInfo() ? true : false;
+    if (!this._isAuthenticated$) {
+      this._isAuthenticated$ = this.getUserInfo() ? true : false;
+    }
+    return this._isAuthenticated$;
   }
 
   public getUserInfo(): User {
     return this.sessionService.get(`${this.loginUserKey}`);
+  }
+
+  public redirectToLogin() {
+    this.router.navigate(['login']);
   }
 }

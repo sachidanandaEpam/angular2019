@@ -1,6 +1,6 @@
 @import '_variables';
 
-.bread-crumb {
+.breadcrumb {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -11,3 +11,34 @@
     font-weight: bold;
     height: 5em;
 }
+
+/* Style the list */
+.breadcrumb ul {
+    padding: 1em;
+    list-style: none;
+  }
+  
+  /* Display list items side by side */
+  .breadcrumb ul li {
+    display: inline;
+    font-weight: bolder;
+  }
+  
+  /* Add a slash symbol (/) before/behind each list item */
+  .breadcrumb ul li+li:before {
+    padding: 1em;
+    color: black;
+    content: "/\00a0";
+  }
+  
+  /* Add a color to all links inside the list */
+  .breadcrumb ul li a {
+    color: $color-link;
+    text-decoration: none;
+  }
+  
+  /* Add a color on mouse-over */
+  .breadcrumb ul li a:hover {
+    color: $color-blue;
+    text-decoration: none;
+  }

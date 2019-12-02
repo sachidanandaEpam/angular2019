@@ -11,10 +11,11 @@ import { FormatCourseItemDirective } from './directives/format-course-item.direc
 import { DurationPipe } from './pipes/duration.pipe';
 import { FilterItemsPipe } from './pipes/filter-items.pipe';
 import { SortItemsPipe } from './pipes/sort-items.pipe';
-import { AppFieldDisplayErrorComponent } from './components/validation/validation.component';
+import { ValidationErrorDisplayComponent } from './components/validation/validation-error-display.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { DurationsComponent } from './components/durations/durations.component';
 import { UsersPickerComponent } from './components/users-picker/users-picker.component';
+import { FormFieldWrapperComponent } from './components/form-field-wrapper/form-field-wrapper.component';
 
 
 const COMPONENTS = [
@@ -22,10 +23,11 @@ const COMPONENTS = [
   FooterComponent,
   HeaderComponent,
   PageNotFoundComponent,
-  AppFieldDisplayErrorComponent,
+  ValidationErrorDisplayComponent,
   DatePickerComponent,
   DurationsComponent,
-  UsersPickerComponent
+  UsersPickerComponent,
+  FormFieldWrapperComponent
 ];
 
 const PIPES = [

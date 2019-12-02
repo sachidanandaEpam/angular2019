@@ -13,7 +13,7 @@
     border: 0 none;
 }
 
-.form-fieldset > .form-header {
+.form-fieldset .form-header {
     color: $color-primary;
     display: flex;
     justify-content: flex-start;
@@ -22,14 +22,14 @@
     font-weight: bold;
 }
 
-.form-controller > .form-footer {
+.form-controller .form-footer {
     line-height: 2em;
     display: flex;
     flex-direction: row;
     padding: 2em 0;
 }
 
-.form-fieldset > .form-field {
+.form-fieldset .form-field {
     font-weight: bold;
     display: flex;
     flex-direction: row;
@@ -55,4 +55,5 @@
     content: "* required";
     color: #6c7283;
     font-size: 0.8em;
+    float: right;
 }
