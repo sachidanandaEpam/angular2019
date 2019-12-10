@@ -1,0 +1,13 @@
+<div class="header">
+    <div class="headerLeft">
+        <img src="assets/images/logo.svg" alt="{{title}}">
+        <h2 class="header-title">{{title}}</h2>
+        <div class="header-message" *ngIf="isAuthenticated()">Welcome {{name.last}}, {{name.first}}</div>
+    </div>
+
+    <div class="headerRight">
+        <button class="btn link btn-menu btn-menu-login" routerLink="/login" *ngIf="!isAuthenticated()">User
+            Login</button>
+        <button class="btn link btn-menu btn-menu-logout" (click)="logout()" *ngIf="isAuthenticated()">Log out</button>
+    </div>
+</div>

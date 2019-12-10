@@ -1,0 +1,41 @@
+<div class="page-container">
+    <div class="item-details-container">
+        <form class="form-controller" [formGroup]="itemDetailsForm" (ngSubmit)="onSubmit()">
+            <fieldset class="form-fieldset">
+                <legend class="form-header">New Course</legend>
+                <input type="hidden" [formControlName]="id">
+                <app-form-field-wrapper [formItem]="itemDetailFields[0]" [formGroup]="itemDetailsForm">
+                    <input [type]="itemDetailFields[0].type" [id]="itemDetailFields[0].name"
+                        [placeholder]="itemDetailFields[0].hint" [formControlName]="itemDetailFields[0].name"
+                        [required]="!itemDetailFields[0].optional" [readonly]="itemDetailFields[0].readonly">
+                </app-form-field-wrapper>
+
+                <app-form-field-wrapper [formItem]="itemDetailFields[1]" [formGroup]="itemDetailsForm">
+                    <textarea [id]="itemDetailFields[1].name" [placeholder]="itemDetailFields[1].hint"
+                        [formControlName]="itemDetailFields[1].name" [required]="!itemDetailFields[1].optional"
+                        [readonly]="itemDetailFields[0].readonly" rows="5"></textarea>
+                </app-form-field-wrapper>
+
+                <app-form-field-wrapper [formItem]="itemDetailFields[2]" [formGroup]="itemDetailsForm">
+                    <app-date-picker [formFieldItem]="itemDetailFields[2]" [formControlName]="itemDetailFields[2].name">
+                    </app-date-picker>
+                </app-form-field-wrapper>
+
+                <app-form-field-wrapper [formItem]="itemDetailFields[3]" [formGroup]="itemDetailsForm">
+                    <app-durations [formFieldItem]="itemDetailFields[3]" [formControlName]="itemDetailFields[3].name">
+                    </app-durations>
+                </app-form-field-wrapper>
+
+                <app-form-field-wrapper [formItem]="itemDetailFields[4]" [formGroup]="itemDetailsForm">
+                    <app-users-picker [formFieldItem]="itemDetailFields[4]"
+                        [formControlName]="itemDetailFields[4].name">
+                    </app-users-picker>
+                </app-form-field-wrapper>
+            </fieldset>
+            <div class="form-footer">
+                <button class="btn" type="button" routerLink="/courses">Cancel</button>
+                <button class="btn" type="submit" [disabled]="!itemDetailsForm.valid">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

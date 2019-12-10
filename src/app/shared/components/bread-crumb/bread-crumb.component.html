@@ -1,0 +1,12 @@
+<div class="breadcrumb" *ngIf="isAuthenticated() | async as isAuthenticated">
+    <ul>
+        <li *ngFor="let menuItem of breadcrumbs; let i = index">
+            <ng-container *ngIf="!isLastItem(i); else lastBreadCrumb">
+                <a class="link" [routerLink]="menuItem.path">{{menuItem.label}}</a>
+            </ng-container>
+            <ng-template #lastBreadCrumb>
+                <span>{{menuItem.label}}</span>
+            </ng-template>
+        </li>
+    </ul>
+</div>
