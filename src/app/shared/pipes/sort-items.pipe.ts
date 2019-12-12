@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 })
 export class SortItemsPipe implements PipeTransform {
 
-  transform(value: Array<CourseItem>, by: string, direction: 'asc' | 'desc'): Array<CourseItem> {
+  public transform(value: Array<CourseItem>, by: string, direction: 'asc' | 'desc'): Array<CourseItem> {
     return _.orderBy(value, [by], direction);
   }
 

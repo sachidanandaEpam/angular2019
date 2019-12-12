@@ -14,12 +14,12 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
 
-  @Input() title = 'Tasks';
+  @Input() private title = 'Tasks';
 
-  name: Name;
-  private _isAuthenticated: boolean;
+  private name: Name;
+  private isAuthenticated: boolean;
 
-  logout() {
+  public logout() {
     this.authService.logout();
   }
 
@@ -31,7 +31,7 @@ export class HeaderComponent {
     );
   }
 
-  isAuthenticated(): boolean {
+  public sAuthenticated(): boolean {
     this.authService.isAuthenticated().pipe(
       take(1),
       tap(isAuthenticated => {
@@ -41,9 +41,9 @@ export class HeaderComponent {
         })
     ).subscribe(
       result => {
-        this._isAuthenticated = result;
+        this.isAuthenticated = result;
       }
     );
-    return this._isAuthenticated;
+    return this.isAuthenticated;
   }
 }

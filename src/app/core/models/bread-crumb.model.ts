@@ -1,4 +1,4 @@
 export class BreadCrumb {
-    path: string;
-    label: string;
+    public path: string;
+    public label: string;
 }

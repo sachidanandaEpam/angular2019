@@ -7,7 +7,7 @@ import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, Input } from '@
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     console.log(`CoursesComponent being destroyed.`);
   }
 
@@ -15,7 +15,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     console.log('CoursesComponent Constructor called');
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     console.log('Initializing CoursesComponent inside ngOnInit.');
   }
 }

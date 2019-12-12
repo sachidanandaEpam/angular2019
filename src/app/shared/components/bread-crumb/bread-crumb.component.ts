@@ -15,6 +15,7 @@ const isNavigationEnd = (ev: Event) => ev instanceof NavigationEnd;
  * Check if an angular router 'Event' is instance of 'NavigationEnd' event
  */
 const isActivationEnd = (ev: Event) => ev instanceof ActivationEnd;
+const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
 @Component({
   selector: 'app-bread-crumb',
@@ -22,7 +23,6 @@ const isActivationEnd = (ev: Event) => ev instanceof ActivationEnd;
   styleUrls: ['./bread-crumb.component.scss']
 })
 export class BreadCrumbComponent implements OnInit {
-  static readonly ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
   private breadcrumbs: BreadCrumb[];
   private _isAuthenticated: boolean;
@@ -32,7 +32,7 @@ export class BreadCrumbComponent implements OnInit {
     this.breadcrumbs = [];
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root));
@@ -47,7 +47,7 @@ export class BreadCrumbComponent implements OnInit {
 
     for (const child of children) {
       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-      let label = child.snapshot.data[BreadCrumbComponent.ROUTE_DATA_BREADCRUMB];
+      let label = child.snapshot.data[ROUTE_DATA_BREADCRUMB];
 
       const id = Number(child.snapshot.params.id);
       if (id && id > 0) {
@@ -66,7 +66,7 @@ export class BreadCrumbComponent implements OnInit {
         path += `/${routeURL}`;
       }
 
-      if (!isNullOrUndefined(label)) {
+      if (label !== null && label !== undefined) {
         menuItems.push({ path, label });
       }
 
@@ -74,11 +74,11 @@ export class BreadCrumbComponent implements OnInit {
     }
   }
 
-  isAuthenticated(): Observable<boolean> {
+  public isAuthenticated(): Observable<boolean> {
     return this.authService.isAuthenticated();
   }
 
-  isLastItem(index: number): boolean {
+  public isLastItem(index: number): boolean {
     return index === this.breadcrumbs.length - 1;
   }
 }

@@ -23,8 +23,8 @@ export class CourseItemDetailsComponent implements OnInit {
   }
 
   private actionStatus: string;
-  itemDetailsForm: FormGroup;
-  itemDetailFields: FormFieldItem[];
+  private itemDetailsForm: FormGroup;
+  private itemDetailFields: FormFieldItem[];
 
   constructor(private route: ActivatedRoute, private itemsService: ItemsService,
               private formBuilder: FormBuilder, private router: Router) {
@@ -78,7 +78,7 @@ export class CourseItemDetailsComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.itemDetailsForm = this.formBuilder.group({
       id: [],
       title: [null, [Validators.required]],
@@ -102,14 +102,14 @@ export class CourseItemDetailsComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (this.itemDetailsForm.valid) {
       this.actionStatus = 'success';
       this.itemsService.update(this.itemDetailsForm.value).subscribe();
     }
   }
 
-  isReadOnly() {
+  public isReadOnly() {
     let isReadOnly = false;
     if (this.route.snapshot.data.breadcrumb === 'Detail') {
       isReadOnly = true;

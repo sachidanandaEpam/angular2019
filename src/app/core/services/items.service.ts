@@ -11,32 +11,27 @@ import { Courses } from '../models/courses.model';
 })
 export class ItemsService {
 
-  defaultSuccessResponse = {
-    status: 'success',
-    statusCode: 200
-  };
-
   constructor(private _api: ApiService) { }
 
-  get(start: number = 0, count: number = 1, textFragment: string = ''): Observable<CourseItem[]> {
+  public get(start: number = 0, count: number = 1, textFragment: string = ''): Observable<CourseItem[]> {
     return this._api.get<Courses[]>(EndPoint.courses, {start, count, textFragment}).pipe(
       map(response => response.map(course => this.mapCourseItem(course)))
     );
   }
 
-  getById(id: number = 0): Observable<CourseItem> {
+  public getById(id: number = 0): Observable<CourseItem> {
     return this._api.get<Courses>(`${EndPoint.courses}/${id}`).pipe(
       map(course => this.mapCourseItem(course))
     );
   }
 
-  create(item: CourseItem): Observable<CourseItem> {
+  public create(item: CourseItem): Observable<CourseItem> {
     return this._api.post<Courses>(`${EndPoint.courses}`, this.mapCourses(item)).pipe(
       map(course => this.mapCourseItem(course))
     );
   }
 
-  update(inputItem: CourseItem): Observable<CourseItem> {
+  public update(inputItem: CourseItem): Observable<CourseItem> {
     const course = this.mapCourses(inputItem);
     course.id = inputItem.id;
     return this._api.patch<Courses>(`${EndPoint.courses}/${inputItem.id}`, course).pipe(
@@ -44,7 +39,7 @@ export class ItemsService {
     );
   }
 
-  delete(inputItem: CourseItem): Observable<any> {
+  public delete(inputItem: CourseItem): Observable<any> {
     return this._api.delete<CourseItem>(`${EndPoint.courses}/${inputItem.id}`);
   }
 

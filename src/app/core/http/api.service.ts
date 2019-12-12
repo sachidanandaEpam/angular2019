@@ -20,9 +20,9 @@ export enum EndPoint {
 
 @Injectable()
 export class ApiService {
-  requested = new Subject<string>();
-  success = new Subject<string>();
-  fail = new Subject<string>();
+  private requested = new Subject<string>();
+  private success = new Subject<string>();
+  private fail = new Subject<string>();
 
   constructor(private httpClient: HttpClient, private location: Location,
               private config: AppConfig) { }
@@ -43,7 +43,7 @@ export class ApiService {
     return this.patchUrl(this.getBaseUrl() + endpoint, body);
   }
 
-  getUrl<T>(url: string, params?: HttpParams | {[param: string]: any}): Observable<T> {
+  public getUrl<T>(url: string, params?: HttpParams | {[param: string]: any}): Observable<T> {
     this.requested.next(url);
     return this.httpClient.get<T>(url, { params, withCredentials: true})
     .pipe(
@@ -53,7 +53,7 @@ export class ApiService {
     );
   }
 
-  postUrl<T>(url: string, body: any): Observable<T> {
+  public postUrl<T>(url: string, body: any): Observable<T> {
     this.requested.next(url);
     return this.httpClient.post<T>(url, body, httpOptions)
     .pipe(
@@ -63,7 +63,7 @@ export class ApiService {
     );
   }
 
-  deleteUrl<T>(url: string): Observable<T> {
+  public deleteUrl<T>(url: string): Observable<T> {
     this.requested.next(url);
     return this.httpClient.delete<T>(url, httpOptions)
     .pipe(
@@ -73,7 +73,7 @@ export class ApiService {
     );
   }
 
-  patchUrl<T>(url: string, body: any): Observable<T> {
+  public patchUrl<T>(url: string, body: any): Observable<T> {
     this.requested.next(url);
     return this.httpClient.patch<T>(url, body, httpOptions)
     .pipe(
@@ -83,7 +83,7 @@ export class ApiService {
     );
   }
 
-  getBaseUrl(): string {
+  public getBaseUrl(): string {
     const protocol = this.config.urls.apiProtocol;
     const hostname = this.config.urls.apiHost;
     const port = this.getApiPort();
@@ -92,7 +92,7 @@ export class ApiService {
     return `${protocol}//${hostname}${port}/${context}`;
   }
 
-  catchFailure<T>(failureResult?: T): MonoTypeOperatorFunction<T> {
+  public catchFailure<T>(failureResult?: T): MonoTypeOperatorFunction<T> {
     return catchError(() => of(failureResult as T));
   }
 

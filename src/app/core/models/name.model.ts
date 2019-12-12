@@ -1,4 +1,4 @@
 export class Name {
-    first?: string;
-    last?: string;
+    public first?: string;
+    public last?: string;
 }

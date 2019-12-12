@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   public title = 'Task 6';
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.setTitle(this.title);
   }
   public constructor(private titleService: Title) { }

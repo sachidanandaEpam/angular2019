@@ -10,8 +10,8 @@ import { ItemsService } from 'src/app/core/services/items.service';
 })
 export class NewCourseComponent implements OnInit {
 
-  itemDetailsForm: FormGroup;
-  itemDetailFields: FormFieldItem[];
+  public itemDetailsForm: FormGroup;
+  public itemDetailFields: FormFieldItem[];
 
   constructor(private itemsService: ItemsService,
               private formBuilder: FormBuilder) {
@@ -58,7 +58,7 @@ export class NewCourseComponent implements OnInit {
     }];
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.itemDetailsForm = this.formBuilder.group({
       title: [null, [Validators.required]],
       durationInMins: [null, [Validators.required]],
@@ -73,7 +73,7 @@ export class NewCourseComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (this.itemDetailsForm.valid) {
       const item = this.itemDetailsForm.value;
       this.itemsService.create(item).subscribe();

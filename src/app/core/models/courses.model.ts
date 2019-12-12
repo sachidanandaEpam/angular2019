@@ -1,11 +1,11 @@
 import { Author } from '.';
 
 export class Courses {
-    id?: number;
-    name: string;
-    date: string;
-    length: number;
-    description: string;
-    authors: Author[];
-    isTopRated: boolean;
+    public id?: number;
+    public name: string;
+    public date: string;
+    public length: number;
+    public description: string;
+    public authors: Author[];
+    public isTopRated: boolean;
 }

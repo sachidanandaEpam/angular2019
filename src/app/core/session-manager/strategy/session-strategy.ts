@@ -1,7 +1,7 @@
 export abstract class SessionStrategy {
     constructor() { }
 
-    abstract getStorage();
+    public abstract getStorage();
 
     public get(key: string): string {
         return this.getStorage().getItem(key);

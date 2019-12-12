@@ -6,14 +6,14 @@ import { EndPoint } from '../http';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    readonly excludedEndpoints: EndPoint[] = [
+    private readonly excludedEndpoints: EndPoint[] = [
         EndPoint.login,
         EndPoint.users
     ];
 
     constructor(private session: SessionService) { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.ignoreRequests(req)) {
             req = req.clone({
                 setHeaders: {

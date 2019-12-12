@@ -8,17 +8,17 @@ import { CourseItem } from 'src/app/core/models/course-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent implements OnChanges {
-  @Input() item: CourseItem;
+  @Input() public item: CourseItem;
 
-  @Output() deleteItem = new EventEmitter<CourseItem>();
+  @Output() public deleteItem = new EventEmitter<CourseItem>();
 
-  currentTime = Date.now();
+  private currentTime = Date.now();
 
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
   }
 
-  deleteCourse() {
+  public deleteCourse() {
     if (confirm(`Do you really want to delete the course '${this.item.title}'?`)) {
       this.deleteItem.emit(this.item);
     }

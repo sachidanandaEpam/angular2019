@@ -1,9 +1,9 @@
 export class FormFieldItem {
-    cssClass: string;
-    label?: string;
-    optional?: boolean;
-    name: string;
-    hint?: string;
-    type?: string;
-    readonly?: boolean;
+    public cssClass: string;
+    public label?: string;
+    public optional?: boolean;
+    public name: string;
+    public hint?: string;
+    public type?: string;
+    public readonly?: boolean;
 }

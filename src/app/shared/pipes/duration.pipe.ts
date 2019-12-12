@@ -6,7 +6,7 @@ import * as moment from 'moment';
 })
 export class DurationPipe implements PipeTransform {
 
-  transform(value: number): string {
+  public transform(value: number): string {
     const d = moment.duration(value, 'minutes');
     return `${d.hours() > 0 ? d.hours() + ' hr' : ''} ${d.minutes() > 0 ? d.minutes() + ' min' : ''}`;
   }

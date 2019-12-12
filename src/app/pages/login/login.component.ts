@@ -13,9 +13,9 @@ import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 })
 export class LoginComponent implements OnInit {
 
-  @Output() loggedIn = new EventEmitter<User>();
+  @Output() public loggedIn = new EventEmitter<User>();
 
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
 
   private loginFields: FormFieldItem[];
 
@@ -38,14 +38,14 @@ export class LoginComponent implements OnInit {
     }];
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
     }
