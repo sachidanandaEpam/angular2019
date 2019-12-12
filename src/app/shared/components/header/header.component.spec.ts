@@ -28,7 +28,7 @@ const testUser = {
   template: `<app-header [title]="title"></app-header>`
 })
 class TestHostComponent {
-  title = 'Testing title';
+  public title = 'Testing title';
 }
 
 describe('HeaderComponentTestHostTesting', () => {

@@ -12,10 +12,10 @@ import { Observable, of, Subject } from 'rxjs';
 })
 export class AuthService {
 
-  loginUserKey = 'LoggedInUserId';
-  // tslint:disable-next-line: variable-name
+  private loginUserKey = 'LoggedInUserId';
+
   private _isAuthenticated: boolean;
-  success = new Subject<string>();
+  private success = new Subject<string>();
 
   constructor(private _api: ApiService, private _session: SessionService, private _router: Router) {
     this._isAuthenticated = false;
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): Observable<boolean> {
-    if(this._session.getAccessToken()) {
+    if (this._session.getAccessToken()) {
       this._isAuthenticated = true;
     }
     return of(this._isAuthenticated);

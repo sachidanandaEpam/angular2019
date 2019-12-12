@@ -7,11 +7,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class SearchCoursesComponent {
 
-  searchText = '';
+  private searchText = '';
 
-  @Output() searchItem = new EventEmitter<string>();
+  @Output() public searchItem = new EventEmitter<string>();
 
-  filterCourses() {
+  public filterCourses() {
     this.searchItem.emit(this.searchText);
   }
 }

@@ -44,11 +44,11 @@ describe('CourseItemComponentClassTesting', () => {
   template: `<app-course-item [item]="item" (deleteItem)="update($event, 'deleted')></app-course-item>`
 })
 class TestHostComponent {
-  actionStatus = '';
+  public actionStatus = '';
 
-  item: CourseItem = testItem;
+  public item: CourseItem = testItem;
 
-  update(item: CourseItem, status: string) {
+  public update(item: CourseItem, status: string) {
     if (status === 'deleted') {
       this.actionStatus = `Deleted ${item.title}`;
     } else if (status === 'edited') {

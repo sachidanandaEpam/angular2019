@@ -36,7 +36,7 @@ export class CoreModule {
     }
   }
 
-  static forRoot({ config }: { config: SessionManagerConfig }): ModuleWithProviders {
+  public static forRoot({ config }: { config: SessionManagerConfig }): ModuleWithProviders {
     return {
       ngModule: CoreModule,
       providers: [

@@ -8,10 +8,10 @@ import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
   styleUrls: ['./form-field-wrapper.component.scss']
 })
 export class FormFieldWrapperComponent {
-  @Input() formItem: FormFieldItem;
-  @Input() formGroup: FormGroup;
+  @Input() public formItem: FormFieldItem;
+  @Input() public formGroup: FormGroup;
 
-  hasErrors(): boolean {
+  public hasErrors(): boolean {
     if (!this.formGroup || !this.formItem || !this.formItem.name) {
       return false;
     }

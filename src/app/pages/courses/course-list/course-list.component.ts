@@ -8,17 +8,17 @@ import { ItemsService } from 'src/app/core/services/items.service';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  items: CourseItem[];
+  private items: CourseItem[];
 
-  start: number;
-  count: number;
-  textFragment: string;
+  private start: number;
+  private count: number;
+  private textFragment: string;
 
-  actionStatus = '';
+  private actionStatus = '';
 
   constructor(private itemsService: ItemsService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.start = 0, this.count = 1, this.textFragment = '';
     this.getItems();
   }
@@ -29,7 +29,7 @@ export class CourseListComponent implements OnInit {
     );
   }
 
-  delete(inputItem: CourseItem) {
+  public delete(inputItem: CourseItem) {
     this.itemsService.delete(inputItem).subscribe(
       () => {
         this.getItems();
@@ -38,12 +38,12 @@ export class CourseListComponent implements OnInit {
     );
   }
 
-  loadMore(numOfCourse: number) {
+  public loadMore(numOfCourse: number) {
     this.count = this.count + numOfCourse;
     this.getItems();
   }
 
-  filterItem(searchText: string) {
+  public filterItem(searchText: string) {
     // this.items = searchText ? this.filterPipe.transform(this.items, searchText) : this.itemsService.get();
     this.textFragment = searchText;
     this.getItems();

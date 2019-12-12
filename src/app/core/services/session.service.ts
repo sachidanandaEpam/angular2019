@@ -44,19 +44,19 @@ export class SessionService {
     this.getSession().remove(this.accessTokenKey);
   }
 
-  get<T>(key: string): T {
+  public get<T>(key: string): T {
     return JSON.parse(this.getSession().get(key)) as T;
   }
 
-  set<T>(key: string, value: T) {
+  public set<T>(key: string, value: T) {
     this.getSession().set(key, JSON.stringify(value));
   }
 
-  remove(key: string) {
+  public remove(key: string) {
     this.getSession().remove(key);
   }
 
-  clear() {
+  public clear() {
     this.getSession().removeAll();
   }
 }

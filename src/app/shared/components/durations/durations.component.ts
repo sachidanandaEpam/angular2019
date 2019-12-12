@@ -25,23 +25,23 @@ export class DurationsComponent {
     this._onChange(value);
   }
 
-  @Input() formFieldItem: FormFieldItem;
+  @Input() public formFieldItem: FormFieldItem;
 
-  disabled = false;
+  private disabled = false;
   private _value: string;
   private _onChange: (value: any) => void = () => { };
   private _onTouched = () => { };
 
-  writeValue(value: string): void {
+  public writeValue(value: string): void {
     this._value = value;
   }
-  registerOnChange(fn: any): void {
+  public registerOnChange(fn: any): void {
     this._onChange = fn;
   }
-  registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: any): void {
     this._onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {
+  public setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 }

@@ -18,7 +18,7 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class UsersPickerComponent {
 
-  allAuthors: Author[];
+  private allAuthors: Author[];
 
   constructor(private _user: UserService) {
     this._user.getAllAuthors().subscribe(
@@ -36,28 +36,28 @@ export class UsersPickerComponent {
     this._onChange(value);
   }
 
-  @Input() formFieldItem: FormFieldItem;
+  @Input() public formFieldItem: FormFieldItem;
 
-  disabled = false;
+  private disabled = false;
   private _value: Author[];
   private _onChange: (value: any) => void = () => { };
   private _onTouched = () => { };
 
-  writeValue(value: Author[]): void {
+  public writeValue(value: Author[]): void {
     this._value = value;
   }
-  registerOnChange(fn: any): void {
+  public registerOnChange(fn: any): void {
     this._onChange = fn;
   }
-  registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: any): void {
     this._onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  public setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  changeUsers(e) {
+  public changeUsers(e) {
     console.log(e);
   }
 }
