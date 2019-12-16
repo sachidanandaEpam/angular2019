@@ -35,3 +35,31 @@
         @include icon($icon, $char);
     }
 }
+
+// headings
+@function getHeadings($from: 1, $to: 6) {
+    $hx: '';
+    @if $from == 0 {
+        $hx: '.h#{$from}';
+    } @else {
+        $hx: 'h#{$from}, .h#{$from}'
+    }
+
+    @if $from == $to {
+        @return $hx;
+    } @else {
+        @return $hx + ',' + getHeadings($from+1, $to);
+    }
+}
+
+@mixin headings($from: 1, $to: 6) {
+    #{getHeadings($from, $to)} {
+        @content
+    }
+}
+
+@mixin heading($size: 1) {
+    @include headings($size, $size) {
+        @content
+    }
+}

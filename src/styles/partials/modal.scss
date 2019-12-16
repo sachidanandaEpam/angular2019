@@ -1,0 +1,66 @@
+@import '~ngx-smart-modal/ngx-smart-modal';
+@import '_variables';
+
+.nsm-dialog {
+    max-width: $modal-max-width;
+    justify-content: center;
+}
+
+.nsm-content {
+    padding: $huge-spacing;
+}
+
+.modal-success, .modal-failure {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .heading {
+        text-align: center;
+    }
+
+    .modal-icon {
+        color: $color-white;
+        display: flex;
+        font-size: 1.5rem;
+        height: 3.5rem;
+        justify-content: center;
+        margin-bottom: $big-spacing;
+        width: 3.5rem;
+    }
+
+    .message-text {
+        line-height: 2rem;
+        margin: 0 $huge-spacing;
+        text-align: center;
+    }
+
+    .modal-links {
+        margin-top: $small-spacing;
+    }
+}
+
+.modal-success > .modal-icon {
+    background-color: $color-green;
+    border-radius: 50%;
+}
+
+.modal-failure > .modal-icon {
+    background-color: $color-red;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    align-items: center;
+    height: 2.8rem;
+    width: 3rem;
+    font-size: 2rem;
+}
+
+.modal-buttons {
+    flex-flow: row wrap;
+    justify-content: center;
+    display: flex;
+    margin: $huge-spacing (-$huge-spacing) 0;
+
+    & > .btn {
+        margin: $base-spacing;
+    }
+}

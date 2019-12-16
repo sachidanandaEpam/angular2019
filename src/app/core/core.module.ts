@@ -8,14 +8,22 @@ import { AppConfig } from './models/app-config.model';
 import { appConfig } from './app-config';
 import { ApiService } from './http/api.service';
 import { AuthGuard } from './guards/auth.guard';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 const PROVIDERS = [
   ApiService,
   AuthGuard
 ];
 
+const EXPORTS = [
+  NgxSmartModalModule
+];
+
 @NgModule({
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, NgxSmartModalModule.forRoot()],
+  exports: [
+    ...EXPORTS
+  ],
   providers: [
     {
       provide: AppConfig,

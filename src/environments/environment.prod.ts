@@ -5,6 +5,7 @@ export const environment = {
       apiProtocol: 'http:',
       apiHost: 'localhost',
       apiPort: '3004'
-    }
+    },
+    defaultCourseToDisplay: 5
   }
 };

@@ -17,7 +17,7 @@ export class HeaderComponent {
   @Input() private title = 'Tasks';
 
   private name: Name;
-  private isAuthenticated: boolean;
+  private isAuthenticated$: boolean;
 
   public logout() {
     this.authService.logout();
@@ -31,7 +31,7 @@ export class HeaderComponent {
     );
   }
 
-  public sAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     this.authService.isAuthenticated().pipe(
       take(1),
       tap(isAuthenticated => {
@@ -41,9 +41,9 @@ export class HeaderComponent {
         })
     ).subscribe(
       result => {
-        this.isAuthenticated = result;
+        this.isAuthenticated$ = result;
       }
     );
-    return this.isAuthenticated;
+    return this.isAuthenticated$;
   }
 }

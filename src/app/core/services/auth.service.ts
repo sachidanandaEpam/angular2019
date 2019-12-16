@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/core/models/user.model';
-import { SessionService } from './session.service';
 import { Router } from '@angular/router';
-import { ApiService, EndPoint } from '../http/api.service';
+import { Observable, of } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { Token } from '../../core/models';
-import { shareReplay, map, take, tap, mapTo, switchMapTo, filter, reduce, switchMap, first, delay } from 'rxjs/operators';
-import { Observable, of, Subject } from 'rxjs';
+import { ApiService, EndPoint } from '../http/api.service';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  private loginUserKey = 'LoggedInUserId';
-
   private _isAuthenticated: boolean;
-  private success = new Subject<string>();
 
   constructor(private _api: ApiService, private _session: SessionService, private _router: Router) {
     this._isAuthenticated = false;

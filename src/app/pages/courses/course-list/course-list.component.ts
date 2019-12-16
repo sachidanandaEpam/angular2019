@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseItem } from 'src/app/core/models/course-item.model';
 import { ItemsService } from 'src/app/core/services/items.service';
+import { AppConfig } from 'src/app/core/models';
 
 @Component({
   selector: 'app-course-list',
@@ -16,10 +17,10 @@ export class CourseListComponent implements OnInit {
 
   private actionStatus = '';
 
-  constructor(private itemsService: ItemsService) { }
+  constructor(private itemsService: ItemsService, private appConfig: AppConfig) { }
 
   public ngOnInit() {
-    this.start = 0, this.count = 1, this.textFragment = '';
+    this.start = 0, this.count = this.appConfig.defaultCourseToDisplay, this.textFragment = '';
     this.getItems();
   }
 
@@ -45,7 +46,6 @@ export class CourseListComponent implements OnInit {
 
   public filterItem(searchText: string) {
     // this.items = searchText ? this.filterPipe.transform(this.items, searchText) : this.itemsService.get();
-    this.textFragment = searchText;
-    this.getItems();
+    this.getItems(searchText);
   }
 }

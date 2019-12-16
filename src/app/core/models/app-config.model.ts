@@ -8,4 +8,5 @@ export class AppConfig {
         apiPort?: string,
         apiContext?: string
     };
+    public defaultCourseToDisplay?: number;
 }
