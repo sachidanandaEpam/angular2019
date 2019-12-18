@@ -22,7 +22,7 @@ export class ProgressService {
   }
 
   public loadingWrapper<T>(originalObservable: Observable<T>, info?: LoadingInfo): Observable<T> {
-    return EMPTY.pipe(
+    return of(EMPTY).pipe(
       tap(() => this.start(info)),
       switchMapTo(originalObservable),
       tap(() => this.finish()),
