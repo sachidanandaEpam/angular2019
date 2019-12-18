@@ -2,7 +2,6 @@
     <div class="item-details-container">
         <form class="form-controller" [formGroup]="itemDetailsForm" (ngSubmit)="onSubmit()">
             <fieldset class="form-fieldset">
-                <input type="hidden" [formControlName]="id">
                 <app-form-field-wrapper [formItem]="itemDetailFields[0]" [formGroup]="itemDetailsForm">
                     <input [type]="itemDetailFields[0].type" [id]="itemDetailFields[0].name"
                         [placeholder]="itemDetailFields[0].hint" [formControlName]="itemDetailFields[0].name"
@@ -29,6 +28,12 @@
                     <app-users-picker [formFieldItem]="itemDetailFields[4]"
                         [formControlName]="itemDetailFields[4].name">
                     </app-users-picker>
+                </app-form-field-wrapper>
+
+                <app-form-field-wrapper [formItem]="itemDetailFields[5]" [formGroup]="itemDetailsForm">
+                    <input [type]="itemDetailFields[5].type" [id]="itemDetailFields[5].name"
+                        [formControlName]="itemDetailFields[5].name" [required]="!itemDetailFields[5].optional"
+                        [readonly]="itemDetailFields[5].readonly">
                 </app-form-field-wrapper>
             </fieldset>
             <div class="form-footer">

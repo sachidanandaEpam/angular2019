@@ -9,13 +9,17 @@ import { AppConfig } from 'src/app/core/models';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  private items: CourseItem[];
+  public items: CourseItem[];
 
   private start: number;
   private count: number;
   private textFragment: string;
 
-  private actionStatus = '';
+  private _actionStatus = '';
+
+  public get actionStatus(): string {
+    return this._actionStatus;
+  }
 
   constructor(private itemsService: ItemsService, private appConfig: AppConfig) { }
 
@@ -34,7 +38,7 @@ export class CourseListComponent implements OnInit {
     this.itemsService.delete(inputItem).subscribe(
       () => {
         this.getItems();
-        this.actionStatus = `Deleted ${inputItem.title}`;
+        this._actionStatus = `Deleted ${inputItem.title}`;
       }
     );
   }

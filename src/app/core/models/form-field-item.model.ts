@@ -1,5 +1,5 @@
 export class FormFieldItem {
-    public cssClass: string;
+    public cssClass?: string;
     public label?: string;
     public optional?: boolean;
     public name: string;

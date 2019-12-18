@@ -14,9 +14,9 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
 
-  @Input() private title = 'Tasks';
+  @Input() public title = 'Tasks';
 
-  private name: Name;
+  public name: Name;
   private _isAuthenticated: boolean;
 
   public logout() {
