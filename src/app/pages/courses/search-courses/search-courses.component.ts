@@ -2,6 +2,9 @@ import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subject, Subscription, of } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged, mergeMap, delay, filter } from 'rxjs/operators';
 
+const debounceTimeInMillis = 1000;
+const delyInMillis = 500;
+
 @Component({
   selector: 'app-search-courses',
   templateUrl: './search-courses.component.html',
@@ -19,10 +22,10 @@ export class SearchCoursesComponent implements OnDestroy {
     this.subscription = this.keyUp.pipe(
       map(e => (e.target as HTMLInputElement).value),
       filter(text => (text.length > 2 || text.length === 0)),
-      debounceTime(1000),
+      debounceTime(debounceTimeInMillis),
       distinctUntilChanged(),
       mergeMap(search => of(search).pipe(
-        delay(500),
+        delay(delyInMillis),
       )),
     ).subscribe(search => {
         this.searchItem.emit(search);

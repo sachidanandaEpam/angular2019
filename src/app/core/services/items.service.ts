@@ -40,8 +40,8 @@ export class ItemsService {
     ), {message: 'Updating item'});
   }
 
-  public delete(inputItem: CourseItem): Observable<any> {
-    return this._progress.loadingWrapper(this._api.delete<CourseItem>(`${EndPoint.courses}/${inputItem.id}`),
+  public delete(inputItem: CourseItem): Observable<void> {
+    return this._progress.loadingWrapper(this._api.delete<void>(`${EndPoint.courses}/${inputItem.id}`),
       {message: 'Deleting items'});
   }
 
