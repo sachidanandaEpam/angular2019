@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, of, throwError } from 'rxjs';
+import { Subject, Observable, of, throwError, EMPTY } from 'rxjs';
 import { switchMapTo, tap, catchError } from 'rxjs/operators';
 
 export interface LoadingInfo {
@@ -11,7 +11,7 @@ export interface LoadingInfo {
 })
 export class ProgressService {
   public onStart = new Subject<LoadingInfo>();
-  public onFinish = new Subject();
+  public onFinish = new Subject<void>();
 
   private start(info?: LoadingInfo): void {
     this.onStart.next(info);
@@ -22,7 +22,7 @@ export class ProgressService {
   }
 
   public loadingWrapper<T>(originalObservable: Observable<T>, info?: LoadingInfo): Observable<T> {
-    return of(null).pipe(
+    return EMPTY.pipe(
       tap(() => this.start(info)),
       switchMapTo(originalObservable),
       tap(() => this.finish()),
