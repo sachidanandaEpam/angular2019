@@ -1,4 +1,3 @@
 <div class="search-container">
-    <input type="search" [(ngModel)]="searchText" placeholder="Text to search">
-    <button (click)="filterCourses()" class="btn">Search</button>
+    <input type="search" [(ngModel)]="searchText" placeholder="Text to search" (keyup)='keyUp.next($event)'>
 </div>

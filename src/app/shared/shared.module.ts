@@ -16,6 +16,10 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { DurationsComponent } from './components/durations/durations.component';
 import { UsersPickerComponent } from './components/users-picker/users-picker.component';
 import { FormFieldWrapperComponent } from './components/form-field-wrapper/form-field-wrapper.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { BlockLoadingComponent } from './components/block-loading/block-loading.component';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 
 const COMPONENTS = [
@@ -27,7 +31,10 @@ const COMPONENTS = [
   DatePickerComponent,
   DurationsComponent,
   UsersPickerComponent,
-  FormFieldWrapperComponent
+  FormFieldWrapperComponent,
+  ModalComponent,
+  LoadingComponent,
+  BlockLoadingComponent
 ];
 
 const PIPES = [
@@ -54,6 +61,7 @@ const ANGULARMODULES = [
     ...DIRECTIVES
   ],
   imports: [
+    NgxSmartModalModule,
     ...ANGULARMODULES
   ],
   exports: [

@@ -1,0 +1,61 @@
+@import '_variables';
+
+$dot-radius: .5625rem;
+$dot-shift: 2.1875rem;
+
+.spinner:before,
+.spinner:after,
+.spinner {
+    border-radius: 50%;
+    width: $dot-radius;
+    height: $dot-radius;
+    animation-fill-mode: both;
+    animation: round-dots 1.2s infinite ease-in-out;
+}
+
+.spinner {
+    margin: $base-spacing auto ($base-spacing + $dot-radius);
+    position: relative;
+    text-indent: -9999rem;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+
+    &.spinner--small {
+        margin: $small-spacing auto ($small-spacing + $dot-radius);
+    }
+
+    &.spinner--big {
+        margin: $big-spacing auto ($big-spacing + $dot-radius);
+    }
+
+    &.spinner--huge {
+        margin: $huge-spacing auto ($huge-spacing + $dot-radius);
+    }
+}
+
+.spinner:before {
+    left: -$dot-shift;
+    animation-delay: -0.32s;
+}
+
+.spinner:after {
+    left: $dot-shift;
+}
+
+.spinner:after,
+.spinner:before {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+
+@keyframes round-dots {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 $dot-radius 0 -.8125rem #73acd8;
+    }
+    40% {
+        box-shadow: 0 $dot-radius 0 0 $color-primary;
+    }
+}

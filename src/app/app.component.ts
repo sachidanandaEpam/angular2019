@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class AppComponent implements OnInit {
 
-  public title = 'Task 6';
+  public title = 'Task 9';
 
   public ngOnInit(): void {
     this.setTitle(this.title);

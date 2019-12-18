@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseItem } from 'src/app/core/models/course-item.model';
 import { ItemsService } from 'src/app/core/services/items.service';
+import { AppConfig } from 'src/app/core/models';
 
 @Component({
   selector: 'app-course-list',
@@ -8,18 +9,22 @@ import { ItemsService } from 'src/app/core/services/items.service';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  private items: CourseItem[];
+  public items: CourseItem[];
 
   private start: number;
   private count: number;
   private textFragment: string;
 
-  private actionStatus = '';
+  private _actionStatus = '';
 
-  constructor(private itemsService: ItemsService) { }
+  public get actionStatus(): string {
+    return this._actionStatus;
+  }
+
+  constructor(private itemsService: ItemsService, private appConfig: AppConfig) { }
 
   public ngOnInit() {
-    this.start = 0, this.count = 1, this.textFragment = '';
+    this.start = 0, this.count = this.appConfig.defaultCourseToDisplay, this.textFragment = '';
     this.getItems();
   }
 
@@ -33,7 +38,7 @@ export class CourseListComponent implements OnInit {
     this.itemsService.delete(inputItem).subscribe(
       () => {
         this.getItems();
-        this.actionStatus = `Deleted ${inputItem.title}`;
+        this._actionStatus = `Deleted ${inputItem.title}`;
       }
     );
   }
@@ -45,7 +50,6 @@ export class CourseListComponent implements OnInit {
 
   public filterItem(searchText: string) {
     // this.items = searchText ? this.filterPipe.transform(this.items, searchText) : this.itemsService.get();
-    this.textFragment = searchText;
-    this.getItems();
+    this.getItems(searchText);
   }
 }

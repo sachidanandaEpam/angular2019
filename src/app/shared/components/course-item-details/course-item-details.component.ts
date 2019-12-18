@@ -14,17 +14,17 @@ import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 export class CourseItemDetailsComponent implements OnInit {
   private _isReadOnly: boolean;
 
-  get readOnly(): boolean {
+  public get readOnly(): boolean {
     return this._isReadOnly;
   }
 
-  set readOnly(readOnly: boolean) {
+  public set readOnly(readOnly: boolean) {
     this._isReadOnly = readOnly;
   }
 
   private actionStatus: string;
-  private itemDetailsForm: FormGroup;
-  private itemDetailFields: FormFieldItem[];
+  public itemDetailsForm: FormGroup;
+  public itemDetailFields: FormFieldItem[];
 
   constructor(private route: ActivatedRoute, private itemsService: ItemsService,
               private formBuilder: FormBuilder, private router: Router) {
@@ -73,6 +73,12 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'authors',
       hint: 'Select authors',
       type: 'select',
+      readonly: this.readOnly
+    },
+    {
+      optional: false,
+      name: 'id',
+      type: 'hidden',
       readonly: this.readOnly
     }];
 

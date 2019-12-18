@@ -5102,6 +5102,11 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+ngx-smart-modal@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-smart-modal/-/ngx-smart-modal-7.3.0.tgz#e9e607a7559b08d9182d8dfa8f72fb11286cee00"
+  integrity sha512-Lw2vQOzsSN+yq+NOPxb1ifnW4onsIk3yHov99vqeZV/X1rlaE4gElkbnduJub218JLCb4qGiBB6+4hDtrJm13A==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

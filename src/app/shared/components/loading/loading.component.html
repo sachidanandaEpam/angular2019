@@ -1,0 +1,5 @@
+<app-modal [modalId]="modalId" [escapable]="false" [dismissable]="false">
+    <h3 class="text-success">Please wait</h3>
+    <h4 *ngIf="loadingInfo">{{ loadingInfo.message}}</h4>
+    <app-block-loading></app-block-loading>
+</app-modal>

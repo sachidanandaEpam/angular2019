@@ -1,0 +1,5 @@
+<ngx-smart-modal [autostart]="autostart" [dismissable]="dismissable" [escapable]="escapable" [identifier]="modalId"
+    [closable]="false" (onClose)="closed.emit()" (onDismiss)="dismissed.emit()"
+    customClass="nsm-dialog-animation-fade nsm-centered">
+    <ng-content></ng-content>
+</ngx-smart-modal>

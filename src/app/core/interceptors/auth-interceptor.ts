@@ -11,13 +11,13 @@ export class AuthInterceptor implements HttpInterceptor {
         EndPoint.users
     ];
 
-    constructor(private session: SessionService) { }
+    constructor(private _session: SessionService) { }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.ignoreRequests(req)) {
             req = req.clone({
                 setHeaders: {
-                    Authorization: this.session.getAccessToken()
+                    Authorization: this._session.getAccessToken()
                 }
             });
         }
