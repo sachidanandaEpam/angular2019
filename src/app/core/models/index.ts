@@ -8,3 +8,4 @@ export * from './form-field-item.model';
 export * from './service-response.model';
 export * from './name.model';
 export * from './author.model';
+export * from './credentials.model';

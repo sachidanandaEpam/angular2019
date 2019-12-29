@@ -1,4 +1,4 @@
-<div class="breadcrumb" *ngIf="isAuthenticated() | async as isAuthenticated">
+<div class="breadcrumb" *ngIf="isAuthenticated$ | async">
     <ul>
         <li *ngFor="let menuItem of breadcrumbs; let i = index">
             <ng-container *ngIf="!isLastItem(i); else lastBreadCrumb">

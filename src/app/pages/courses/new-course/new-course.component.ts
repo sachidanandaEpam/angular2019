@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { FormFieldItem } from 'src/app/core/models';
-import { ItemsService } from 'src/app/core/services/items.service';
+import { ItemActions } from 'src/app/core/store/actions';
+import { ItemStates } from 'src/app/core/store/state';
 
 @Component({
   selector: 'app-new-course',
@@ -13,7 +15,7 @@ export class NewCourseComponent implements OnInit {
   public itemDetailsForm: FormGroup;
   public itemDetailFields: FormFieldItem[];
 
-  constructor(private itemsService: ItemsService,
+  constructor(private store: Store<ItemStates.IItemState>,
               private formBuilder: FormBuilder) {
 
     this.itemDetailFields = [{
@@ -76,7 +78,7 @@ export class NewCourseComponent implements OnInit {
   public onSubmit() {
     if (this.itemDetailsForm.valid) {
       const item = this.itemDetailsForm.value;
-      this.itemsService.create(item).subscribe();
+      this.store.dispatch(ItemActions.createItem({ item }));
     }
   }
 }
