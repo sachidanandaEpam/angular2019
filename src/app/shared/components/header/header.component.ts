@@ -1,49 +1,31 @@
-import { Component, Input } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Name } from 'src/app/core/models';
-import { take, tap } from 'rxjs/operators';
-import { UserService } from 'src/app/core/services/user.service';
+import { AuthActions } from 'src/app/core/store/actions';
+import { AuthSelectors } from 'src/app/core/store/selectors';
+import { AuthStates } from 'src/app/core/store/state';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
+export class HeaderComponent implements OnInit {
 
   @Input() public title = 'Tasks';
 
-  public name: Name;
-  private _isAuthenticated: boolean;
+  public isAuthenticated$: Observable<boolean>;
+  public name$: Observable<Name>;
+
+  constructor(private store: Store<AuthStates.IAuthState>) { }
+
+   public ngOnInit() {
+    this.isAuthenticated$ = this.store.select(AuthSelectors.selectLoggedIn);
+    this.name$ = this.store.select(AuthSelectors.selectUserName);
+   }
 
   public logout() {
-    this.authService.logout();
-  }
-
-  private fetchUsername(): void {
-    this.userService.getUserInfo().subscribe(
-      (response) => {
-        this.name = response.name;
-      }
-    );
-  }
-
-  public isAuthenticated(): boolean {
-    this.authService.isAuthenticated().pipe(
-      take(1),
-      tap(isAuthenticated => {
-        if (isAuthenticated && !this.name) {
-            this.fetchUsername();
-          }
-        })
-    ).subscribe(
-      result => {
-        this._isAuthenticated = result;
-      }
-    );
-    return this._isAuthenticated;
+    this.store.dispatch(AuthActions.logout());
   }
 }

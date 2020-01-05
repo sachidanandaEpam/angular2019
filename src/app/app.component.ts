@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class AppComponent implements OnInit {
 
-  public title = 'Task 9';
+  public title = 'Task 10';
 
   public ngOnInit(): void {
     this.setTitle(this.title);

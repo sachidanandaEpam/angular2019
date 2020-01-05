@@ -1,44 +1,46 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { Token } from '../../core/models';
+import { Observable, of, EMPTY } from 'rxjs';
+import { take, tap, switchMap, map } from 'rxjs/operators';
+import { Token, User } from '../../core/models';
 import { ApiService, EndPoint } from '../http/api.service';
 import { SessionService } from './session.service';
+import { UserService } from './user.service';
+import { IAuthState } from '../store/state/auth.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  private _isAuthenticated: boolean;
+  constructor(private _api: ApiService, private _session: SessionService, private _user: UserService) { }
 
-  constructor(private _api: ApiService, private _session: SessionService, private _router: Router) {
-    this._isAuthenticated = false;
-  }
-
-  public login(login: string, password: string): void {
-    this._api.post<Token>(EndPoint.login, {login, password})
+  public login(login: string, password: string): Observable<IAuthState> {
+    return this._api.post<Token>(EndPoint.login, {login, password})
     .pipe(
       take(1),
       tap(response => {
         this._session.setAccessToken(response.token);
-        this._isAuthenticated = true;
-        this._router.navigate(['']);
-      })
-    ).subscribe();
+      }),
+      switchMap(response => this.getInitialAuthState())
+    );
   }
 
-  public logout(): void {
-    this._session.removeAccessToken();
-    this._isAuthenticated = false;
-    this._router.navigate(['/login']);
+  public logout(): Observable<boolean> {
+    return of(EMPTY).pipe(
+      map(() => {
+        this._session.removeAccessToken();
+        return true;
+      }));
   }
 
   public isAuthenticated(): Observable<boolean> {
-    if (this._session.getAccessToken()) {
-      this._isAuthenticated = true;
-    }
-    return of(this._isAuthenticated);
+    return of(this._session.getAccessToken() ? true : false);
+  }
+
+  public getInitialAuthState(): Observable<IAuthState> {
+    return this._user.getUserInfo().pipe(
+      map((user: User) => ({isAuthenticated: true, user}))
+    );
   }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { Router, NavigationEnd, ActivationEnd, ActivatedRoute } from '@angular/router';
-import { isNullOrUndefined } from 'util';
-import { BreadCrumb } from 'src/app/core/models/bread-crumb.model';
-import { filter, map } from 'rxjs/operators';
-import { ItemsService } from 'src/app/core/services/items.service';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { BreadCrumb } from 'src/app/core/models/bread-crumb.model';
+import { AuthSelectors, ItemSelectors } from 'src/app/core/store/selectors';
+import { AuthStates } from 'src/app/core/store/state';
 
 /**
  * Check if an angular router 'Event' is instance of 'NavigationEnd' event
@@ -24,15 +24,16 @@ const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 })
 export class BreadCrumbComponent implements OnInit {
 
-  private breadcrumbs: BreadCrumb[];
-  private _isAuthenticated: boolean;
+  public breadcrumbs: BreadCrumb[];
+  public isAuthenticated$: Observable<boolean>;
 
-  constructor(private authService: AuthService, private itemsService: ItemsService,
+  constructor(private store: Store<AuthStates.IAuthState>,
               private activatedRoute: ActivatedRoute, private router: Router) {
     this.breadcrumbs = [];
   }
 
   public ngOnInit(): void {
+    this.isAuthenticated$ = this.store.select(AuthSelectors.selectLoggedIn);
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root));
@@ -51,7 +52,7 @@ export class BreadCrumbComponent implements OnInit {
 
       const id = Number(child.snapshot.params.id);
       if (id && id > 0) {
-        this.itemsService.getById(id).pipe(
+        this.store.select(ItemSelectors.selectSelectedItem).pipe(
           map(item => item.title)
         ).subscribe(
           result => {
@@ -72,10 +73,6 @@ export class BreadCrumbComponent implements OnInit {
 
       return this.createBreadcrumbs(child, path, menuItems);
     }
-  }
-
-  public isAuthenticated(): Observable<boolean> {
-    return this.authService.isAuthenticated();
   }
 
   public isLastItem(index: number): boolean {

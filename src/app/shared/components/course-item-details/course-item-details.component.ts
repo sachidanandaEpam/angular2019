@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ItemsService } from 'src/app/core/services/items.service';
-import { CourseItem } from 'src/app/core/models/course-item.model';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CourseItem } from 'src/app/core/models';
 import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 
 @Component({
@@ -12,24 +9,16 @@ import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
   styleUrls: ['./course-item-details.component.scss']
 })
 export class CourseItemDetailsComponent implements OnInit {
-  private _isReadOnly: boolean;
-
-  public get readOnly(): boolean {
-    return this._isReadOnly;
-  }
-
-  public set readOnly(readOnly: boolean) {
-    this._isReadOnly = readOnly;
-  }
+  @Input() public isReadOnly: boolean;
+  @Input() public item: CourseItem;
+  @Output() public itemSubmit = new EventEmitter<CourseItem>();
 
   private actionStatus: string;
   public itemDetailsForm: FormGroup;
   public itemDetailFields: FormFieldItem[];
 
-  constructor(private route: ActivatedRoute, private itemsService: ItemsService,
-              private formBuilder: FormBuilder, private router: Router) {
-    this.isReadOnly();
 
+  constructor(private formBuilder: FormBuilder) {
     this.itemDetailFields = [{
       cssClass: 'form-field',
       label: 'Title',
@@ -37,7 +26,7 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'title',
       hint: 'Enter course title',
       type: 'text',
-      readonly: this.readOnly
+      readonly: this.isReadOnly
     },
     {
       cssClass: 'form-field',
@@ -46,7 +35,7 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'description',
       hint: 'Enter course description',
       type: 'textarea',
-      readonly: this.readOnly
+      readonly: this.isReadOnly
     },
     {
       cssClass: 'form-field form-field-quarter',
@@ -55,7 +44,7 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'courseTime',
       hint: 'Select date',
       type: 'text',
-      readonly: this.readOnly
+      readonly: this.isReadOnly
     },
     {
       cssClass: 'form-field form-field-quarter',
@@ -64,7 +53,7 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'durationInMins',
       hint: 'Enter durations in minutes',
       type: 'text',
-      readonly: this.readOnly
+      readonly: this.isReadOnly
     },
     {
       cssClass: 'form-field form-field-half',
@@ -73,20 +62,20 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'authors',
       hint: 'Select authors',
       type: 'select',
-      readonly: this.readOnly
+      readonly: this.isReadOnly
     },
     {
       optional: false,
       name: 'id',
       type: 'hidden',
-      readonly: this.readOnly
+      readonly: this.isReadOnly
     }];
 
   }
 
   public ngOnInit() {
     this.itemDetailsForm = this.formBuilder.group({
-      id: [],
+      id: [null],
       title: [null, [Validators.required]],
       durationInMins: [null, [Validators.required]],
       description: [null, [Validators.required]],
@@ -98,28 +87,14 @@ export class CourseItemDetailsComponent implements OnInit {
         })
       ])
     });
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.itemsService.getById(Number(id)).subscribe(
-        result => {
-          this.itemDetailsForm.patchValue(result);
-        }
-      );
-    }
+
+    this.itemDetailsForm.patchValue(this.item);
   }
 
   public onSubmit() {
     if (this.itemDetailsForm.valid) {
       this.actionStatus = 'success';
-      this.itemsService.update(this.itemDetailsForm.value).subscribe();
+      this.itemSubmit.emit(this.itemDetailsForm.value);
     }
-  }
-
-  public isReadOnly() {
-    let isReadOnly = false;
-    if (this.route.snapshot.data.breadcrumb === 'Detail') {
-      isReadOnly = true;
-    }
-    this.readOnly = isReadOnly;
   }
 }

@@ -4,18 +4,18 @@
     <div class="action-status">{{actionStatus}}</div>
     <button class="btn btn-add-course" routerLink="/courses/new"> + Add course</button>
 </div>
-
-<div *ngIf="items?.length > 0; else noResult" class="course-items">
-    <app-course-item *ngFor="let item of items | orderBy:'creationTime':'asc'" [item]="item"
-        (deleteItem)="delete($event)">
-    </app-course-item>
-</div>
-<ng-template #noResult>
-    <div class="course-items action-status ">
-        <span>No courses found. Please feel free to add courses.</span>
+<ng-container *ngIf="items$ | async as items">
+    <div *ngIf="items?.length > 0; else noResult" class="course-items">
+        <app-course-item *ngFor="let item of items | orderBy:'creationTime':'asc'" [item]="item"
+            (deleteItem)="delete($event)">
+        </app-course-item>
     </div>
-</ng-template>
-
+    <ng-template #noResult>
+        <div class="course-items action-status ">
+            <span>No courses found. Please feel free to add courses.</span>
+        </div>
+    </ng-template>
+</ng-container>
 <div class="load-more">
     <button class="btn btn-load-more" (click)="loadMore(1)">Load more</button>
 </div>

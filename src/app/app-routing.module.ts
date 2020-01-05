@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components/page-not-found';
-import { CoursesComponent } from './pages/courses/courses.component';
-import { LoginComponent } from './pages/login/login.component';
-import { CourseItemDetailsComponent } from './shared/components/course-item-details/course-item-details.component';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { CourseDetailsContainerComponent } from './pages/course-details-container/course-details-container.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 import { NewCourseComponent } from './pages/courses/new-course/new-course.component';
+import { LoginPageComponent } from './pages/login/login-page.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found';
 
 
 const routes: Routes = [
@@ -39,13 +39,13 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'detail', pathMatch: 'full' },
           {
-            path: 'edit', component: CourseItemDetailsComponent,
+            path: 'edit', component: CourseDetailsContainerComponent,
             data: {
               breadcrumb: 'Edit'
             }
           },
           {
-            path: 'detail', component: CourseItemDetailsComponent,
+            path: 'detail', component: CourseDetailsContainerComponent,
             data: {
               breadcrumb: 'Detail'
             }
@@ -56,7 +56,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginPageComponent
   },
   {
     path: '**',

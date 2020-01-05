@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseItem } from 'src/app/core/models/course-item.model';
-import { ItemsService } from 'src/app/core/services/items.service';
-import { AppConfig } from 'src/app/core/models';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { CourseItem, ItemCriteria } from 'src/app/core/models/course-item.model';
+import { ItemActions } from 'src/app/core/store/actions';
+import { ItemSelectors } from 'src/app/core/store/selectors';
+import { ItemStates } from 'src/app/core/store/state';
 
 @Component({
   selector: 'app-course-list',
@@ -9,11 +13,8 @@ import { AppConfig } from 'src/app/core/models';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  public items: CourseItem[];
-
-  private start: number;
-  private count: number;
-  private textFragment: string;
+  public items$: Observable<CourseItem[]>;
+  public criteria$: Observable<ItemCriteria>;
 
   private _actionStatus = '';
 
@@ -21,35 +22,36 @@ export class CourseListComponent implements OnInit {
     return this._actionStatus;
   }
 
-  constructor(private itemsService: ItemsService, private appConfig: AppConfig) { }
+  constructor(private store: Store<ItemStates.IItemState>) { }
 
   public ngOnInit() {
-    this.start = 0, this.count = this.appConfig.defaultCourseToDisplay, this.textFragment = '';
-    this.getItems();
-  }
+    this.criteria$ = this.store.select(ItemSelectors.selectCriteria);
 
-  private getItems(searchText: string = this.textFragment, start: number = this.start, count: number = this.count): void {
-    this.itemsService.get(start, count, searchText).subscribe(
-      result => this.items = result
+    this.items$ = this.store.pipe(
+      select(ItemSelectors.selectCriteria),
+      map(criteria => this.store.dispatch(ItemActions.loadItems({ criteria }))),
+      switchMap(() => this.store.select(ItemSelectors.selectItems))
     );
   }
 
-  public delete(inputItem: CourseItem) {
-    this.itemsService.delete(inputItem).subscribe(
-      () => {
-        this.getItems();
-        this._actionStatus = `Deleted ${inputItem.title}`;
-      }
-    );
+  public delete(item: CourseItem) {
+    this.store.dispatch(ItemActions.deleteItem({ item }));
   }
 
   public loadMore(numOfCourse: number) {
-    this.count = this.count + numOfCourse;
-    this.getItems();
+    this.store.pipe(
+      select(ItemSelectors.selectCriteria),
+      tap((criteria) => criteria.count = criteria.count + numOfCourse),
+      map(criteria => this.store.dispatch(ItemActions.loadItems({ criteria })))
+    ).subscribe();
   }
 
   public filterItem(searchText: string) {
     // this.items = searchText ? this.filterPipe.transform(this.items, searchText) : this.itemsService.get();
-    this.getItems(searchText);
+    this.store.pipe(
+      select(ItemSelectors.selectCriteria),
+      tap((criteria) => criteria.textFragment = searchText),
+      map(criteria => this.store.dispatch(ItemActions.loadItems({ criteria })))
+    ).subscribe();
   }
 }

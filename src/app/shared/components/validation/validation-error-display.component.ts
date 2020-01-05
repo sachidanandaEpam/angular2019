@@ -8,11 +8,11 @@ import { ValidationErrors } from '@angular/forms';
 })
 export class ValidationErrorDisplayComponent {
 
-  public errorList: { error: string, data: any }[];
+  public errorList: { message: string, data: any }[];
 
   @Input() set errors(value: ValidationErrors) {
     if (value) {
-      this.errorList = Object.keys(value).map(error => ({ error, data: value[error] }));
+      this.errorList = Object.keys(value).map(error => ({ message: error, data: value[error] }));
     } else {
       this.errorList = [];
     }

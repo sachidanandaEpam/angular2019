@@ -1,25 +1,24 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../core/models';
 import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
+import { Credentials } from '../../core/models';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
 
-  @Output() public loggedIn = new EventEmitter<User>();
+  @Output() public loginSubmit = new EventEmitter<Credentials>();
 
   public loginForm: FormGroup;
 
-  private loginFields: FormFieldItem[];
+  public loginFields: FormFieldItem[];
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.loginFields = [{
       cssClass: 'form-field',
       label: 'Email',
@@ -47,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   public onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
+      this.loginSubmit.emit({login: this.loginForm.get('email').value, password: this.loginForm.get('password').value});
     }
   }
 }

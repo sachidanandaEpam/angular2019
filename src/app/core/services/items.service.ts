@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
-import { CourseItem } from 'src/app/core/models/course-item.model';
+import { CourseItem, ItemCriteria } from 'src/app/core/models/course-item.model';
 import { ApiService, EndPoint } from '../http';
 import { Courses } from '../models/courses.model';
 import { ProgressService } from './progress.service';
@@ -13,9 +13,9 @@ export class ItemsService {
 
   constructor(private _api: ApiService, private _progress: ProgressService) { }
 
-  public get(start: number = 0, count: number = 1, textFragment: string = ''): Observable<CourseItem[]> {
+  public get(criteria: ItemCriteria): Observable<CourseItem[]> {
     return this._progress.loadingWrapper(
-      this._api.get<Courses[]>(EndPoint.courses, {start, count, textFragment}).pipe(
+      this._api.get<Courses[]>(EndPoint.courses, {start: criteria.start, count: criteria.count, textFragment: criteria.textFragment}).pipe(
       map(response => response.map(course => this.mapCourseItem(course))),
     ), {message: 'Loading Items'});
   }
@@ -40,8 +40,8 @@ export class ItemsService {
     ), {message: 'Updating item'});
   }
 
-  public delete(inputItem: CourseItem): Observable<void> {
-    return this._progress.loadingWrapper(this._api.delete<void>(`${EndPoint.courses}/${inputItem.id}`),
+  public delete(id: number): Observable<void> {
+    return this._progress.loadingWrapper(this._api.delete<void>(`${EndPoint.courses}/${id}`),
       {message: 'Deleting items'});
   }
 

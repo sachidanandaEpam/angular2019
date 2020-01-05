@@ -1,12 +1,14 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CoursesComponent } from './courses/courses.component';
-import { LoginComponent } from './login/login.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CourseItemComponent } from '../shared/components/course-item/course-item.component';
-import { CourseListComponent } from './courses/course-list/course-list.component';
-import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
 import { SharedModule } from '../shared/shared.module';
-import { CourseItemDetailsComponent } from '../shared/components/course-item-details/course-item-details.component';
+import { CourseDetailsContainerComponent } from './course-details-container/course-details-container.component';
+import { CourseListComponent } from './courses/course-list/course-list.component';
+import { CoursesComponent } from './courses/courses.component';
 import { NewCourseComponent } from './courses/new-course/new-course.component';
+import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
+import { LoginFormComponent } from './login/login-form.component';
+import { LoginPageComponent } from './login/login-page.component';
+import { CourseItemDetailsComponent } from '../shared/components/course-item-details/course-item-details.component';
 
 
 const COMPONENTS = [
@@ -14,8 +16,10 @@ const COMPONENTS = [
     CourseListComponent,
     SearchCoursesComponent,
     CoursesComponent,
-    LoginComponent,
+    LoginFormComponent,
+    LoginPageComponent,
     CourseItemDetailsComponent,
+    CourseDetailsContainerComponent,
     NewCourseComponent
 ];
 

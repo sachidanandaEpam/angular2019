@@ -3,7 +3,7 @@
         <form class="form-controller" [formGroup]="itemDetailsForm" (ngSubmit)="onSubmit()">
             <fieldset class="form-fieldset">
                 <legend class="form-header">New Course</legend>
-                <input type="hidden" [formControlName]="id">
+                <input type="hidden" [formControlName]="itemDetailFields[5].name">
                 <app-form-field-wrapper [formItem]="itemDetailFields[0]" [formGroup]="itemDetailsForm">
                     <input [type]="itemDetailFields[0].type" [id]="itemDetailFields[0].name"
                         [placeholder]="itemDetailFields[0].hint" [formControlName]="itemDetailFields[0].name"

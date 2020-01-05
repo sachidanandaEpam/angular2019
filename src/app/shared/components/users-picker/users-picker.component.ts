@@ -18,7 +18,7 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class UsersPickerComponent {
 
-  private allAuthors: Author[];
+  public allAuthors: Author[];
 
   constructor(private _user: UserService) {
     this._user.getAllAuthors().subscribe(
