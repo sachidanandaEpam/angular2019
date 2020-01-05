@@ -10,8 +10,3 @@ export const reducer = createReducer(
   on(ItemActions.createItemSuccess, (state: ItemStates.IItemState, { createdItem }) => ({ ...state, createdItem })),
 );
 
-export const getItems = (state: ItemStates.IItemState) => state.items;
-export const getCriteria = (state: ItemStates.IItemState) => state.criteria;
-export const getLastDeletedItem = (state: ItemStates.IItemState) => state.deletedItem;
-export const getLastCreatedItem = (state: ItemStates.IItemState) => state.createdItem;
-export const getSelectedItem = (state: ItemStates.IItemState) => state.selectedItem;

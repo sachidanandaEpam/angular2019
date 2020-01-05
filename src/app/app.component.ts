@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-root',

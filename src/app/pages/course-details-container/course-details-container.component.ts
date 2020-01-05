@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemStates } from 'src/app/core/store/state';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-
-import * as AppReducer from 'src/app/core/store/reducers';
 import { Observable } from 'rxjs';
 import { CourseItem } from 'src/app/core/models';
-import { ActivatedRoute } from '@angular/router';
 import { ItemActions } from 'src/app/core/store/actions';
+import { ItemSelectors } from 'src/app/core/store/selectors';
+import { ItemStates } from 'src/app/core/store/state';
+
 
 @Component({
   selector: 'app-course-details-container',
@@ -18,7 +18,7 @@ export class CourseDetailsContainerComponent implements OnInit {
   public item$: Observable<CourseItem>;
 
   constructor(private route: ActivatedRoute, private store: Store<ItemStates.IItemState>) {
-    this.item$ = this.store.select(AppReducer.selectSelectedItem);
+    this.item$ = this.store.select(ItemSelectors.selectSelectedItem);
   }
 
   public ngOnInit() {

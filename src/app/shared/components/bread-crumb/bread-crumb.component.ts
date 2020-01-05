@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { BreadCrumb } from 'src/app/core/models/bread-crumb.model';
-import * as AppReducer from 'src/app/core/store/reducers';
+import { AuthSelectors, ItemSelectors } from 'src/app/core/store/selectors';
 import { AuthStates } from 'src/app/core/store/state';
 
 /**
@@ -33,7 +33,7 @@ export class BreadCrumbComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.isAuthenticated$ = this.store.select(AppReducer.selectLoggedIn);
+    this.isAuthenticated$ = this.store.select(AuthSelectors.selectLoggedIn);
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root));
@@ -52,7 +52,7 @@ export class BreadCrumbComponent implements OnInit {
 
       const id = Number(child.snapshot.params.id);
       if (id && id > 0) {
-        this.store.select(AppReducer.selectSelectedItem).pipe(
+        this.store.select(ItemSelectors.selectSelectedItem).pipe(
           map(item => item.title)
         ).subscribe(
           result => {

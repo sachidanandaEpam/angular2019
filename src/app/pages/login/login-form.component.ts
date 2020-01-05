@@ -16,7 +16,7 @@ export class LoginFormComponent implements OnInit {
 
   public loginForm: FormGroup;
 
-  private loginFields: FormFieldItem[];
+  public loginFields: FormFieldItem[];
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.loginFields = [{

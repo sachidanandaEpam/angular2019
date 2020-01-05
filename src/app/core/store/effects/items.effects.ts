@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ItemCriteria } from '../../models';
 import { ItemsService } from '../../services/items.service';
 import { ItemActions } from '../actions';
-import { select, Store } from '@ngrx/store';
+import { ItemSelectors } from '../selectors';
 import { ItemStates } from '../state';
-import * as AppReducer from '../reducers';
 
 @Injectable()
 export class ItemsEffects {
@@ -48,7 +48,7 @@ export class ItemsEffects {
     this.actions$.pipe(
       ofType(ItemActions.deleteItem),
       map(action => action.item),
-      withLatestFrom(this.store$.select(AppReducer.selectCriteria)),
+      withLatestFrom(this.store$.select(ItemSelectors.selectCriteria)),
       exhaustMap(([deletedItem, criteria]) =>
         this.itemService.delete(deletedItem.id).pipe(
           switchMap(() => [

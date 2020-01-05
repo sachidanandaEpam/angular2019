@@ -12,7 +12,7 @@ const delyInMillis = 500;
 })
 export class SearchCoursesComponent implements OnDestroy {
 
-  private searchText = '';
+  public searchText = '';
 
   public keyUp = new Subject<KeyboardEvent>();
   private subscription: Subscription;

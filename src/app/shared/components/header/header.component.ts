@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Name } from 'src/app/core/models';
 import { AuthActions } from 'src/app/core/store/actions';
-import * as AppReducer from 'src/app/core/store/reducers';
+import { AuthSelectors } from 'src/app/core/store/selectors';
 import { AuthStates } from 'src/app/core/store/state';
 
 @Component({
@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit {
   constructor(private store: Store<AuthStates.IAuthState>) { }
 
    public ngOnInit() {
-    this.isAuthenticated$ = this.store.select(AppReducer.selectLoggedIn);
-    this.name$ = this.store.select(AppReducer.selectUserName);
+    this.isAuthenticated$ = this.store.select(AuthSelectors.selectLoggedIn);
+    this.name$ = this.store.select(AuthSelectors.selectUserName);
    }
 
   public logout() {

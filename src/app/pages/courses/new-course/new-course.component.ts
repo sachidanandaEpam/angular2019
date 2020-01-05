@@ -57,6 +57,14 @@ export class NewCourseComponent implements OnInit {
       name: 'authors',
       hint: 'Select authors',
       type: 'select'
+    },
+    {
+      cssClass: '',
+      label: '',
+      optional: true,
+      name: 'id',
+      hint: '',
+      type: 'hidden'
     }];
   }
 
@@ -71,7 +79,8 @@ export class NewCourseComponent implements OnInit {
           id: [null, [Validators.required]],
           name: [null, [Validators.required]]
         })
-      ])
+      ]),
+      id: [null, []]
     });
   }
 

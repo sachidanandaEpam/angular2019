@@ -31,12 +31,12 @@ const sessionConfig: SessionManagerConfig = {
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule,
-    StoreDevtoolsModule.instrument({
+    !environment.production ? StoreDevtoolsModule.instrument({
       name: 'Video Courses App',
 
       // In a production build you would want to disable the Store Devtools
       // logOnly: environment.production,
-    }),
+    }) : [],
     CoreModule.forRoot({ config: sessionConfig }),
     SharedModule,
     PagesModule,
