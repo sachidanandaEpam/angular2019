@@ -10,7 +10,8 @@ export const environment = {
       apiHost: 'localhost',
       apiPort: '3004'
     },
-    defaultCourseToDisplay: 5
+    defaultCourseToDisplay: 5,
+    title: ''
   }
 };
 

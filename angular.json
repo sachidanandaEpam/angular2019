@@ -108,7 +108,7 @@
               "browserTarget": "TrainingTask:build:production"
             },
             "dev": {
-              "browserTarget": "TrainingTask:build:production"
+              "browserTarget": "TrainingTask:build:dev"
             }
           }
         },
@@ -162,6 +162,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "TrainingTask:serve:production"
+            },
+            "dev": {
+              "devServerTarget": "TrainingTask:serve:dev"
             }
           }
         }

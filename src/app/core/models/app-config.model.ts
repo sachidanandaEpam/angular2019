@@ -9,4 +9,5 @@ export class AppConfig {
         apiContext?: string
     };
     public defaultCourseToDisplay?: number;
+    public title: string;
 }
