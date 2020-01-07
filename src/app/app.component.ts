@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AppConfig } from './core/models';
 
 @Component({
   selector: 'app-root',
@@ -8,19 +9,21 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
-  public title = 'Task 10';
+  public title: string;
 
   public ngOnInit(): void {
     this.setTitle(this.title);
   }
-  public constructor(private titleService: Title) { }
+  public constructor(private _title: Title, private _appConfig: AppConfig) {
+    this.title = this._appConfig.title;
+  }
 
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this._title.setTitle(newTitle);
   }
 
   public getTitle(): string {
-    return this.titleService.getTitle();
+    return this._title.getTitle();
   }
 }
