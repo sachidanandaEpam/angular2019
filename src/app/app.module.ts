@@ -1,15 +1,15 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { SessionManagerConfig } from './core/session-manager/config/session-manager-config';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
-import { SessionManagerConfig } from './core/session-manager/config/session-manager-config';
 import { StrategyType } from './shared/strategy-type.enum';
-import { environment } from 'src/environments/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 
 const sessionConfig: SessionManagerConfig = {
   strategyType: StrategyType.SESSION

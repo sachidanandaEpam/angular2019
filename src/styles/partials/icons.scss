@@ -1,0 +1,28 @@
+@import '_variables';
+@import '_mixins';
+
+%icon {
+    display: inline-flex;
+    align-self: center;
+    font-family: $font-face-icons;
+    vertical-align: middle;
+    line-height: 1rem;
+}
+
+.icon::before {
+    @extend %icon;
+}
+
+.icon-left::before {
+    @extend %icon;
+    margin-right: .625rem;
+}
+
+.icon-right::before {
+    @extend %icon;
+    margin-left: .625rem;
+}
+
+@include icons((
+    "calendar": "\e00d"
+));

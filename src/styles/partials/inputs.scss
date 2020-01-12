@@ -45,3 +45,46 @@ input[type=search] {
     padding: 0 3em;
     line-height: 2.5em;
 }
+
+.input-group {
+    display: flex;
+
+    & > input {
+        &:nth-child(2) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding-left: $small-spacing;
+        }
+
+        &:nth-last-child(2) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            padding-right: $small-spacing;
+        }
+
+        & > .input-prepand, & > .input-append {
+            display: flex;
+            padding: 0 $small-spacing;
+            align-items: center;
+            background-color: $color-primary-background;
+            border: 1px solid $color-primary;
+            white-space: nowrap;
+        }
+
+        &.ng-touched.ng-invalid > .input-prepand, &.ng-touched.ng-invalid > .input-append {
+            border-color: $color-red;
+            background-color: $color-red;
+            color: $color-primary-background;
+        }
+
+        & > .input-prepand {
+            border-right: none;
+            border-radius: $border-radius-control 0 0 $border-radius-control;
+        }
+
+        & > .input-append {
+            border-left: none;
+            border-radius: 0 $border-radius-control $border-radius-control 0;
+        }
+    }
+}

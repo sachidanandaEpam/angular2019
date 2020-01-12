@@ -1,5 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans);
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 @import './variables';
+@import './mixins';
+@import './fonts';
 
 * {
     box-sizing: border-box;
@@ -46,3 +50,4 @@ body {
 @import './partials/modal.scss';
 @import './partials/text.scss';
 @import './partials/headings.scss';
+@import './partials/icons.scss';
