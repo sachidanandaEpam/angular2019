@@ -57,3 +57,16 @@
     font-size: 0.8em;
     float: right;
 }
+
+.form-field .form-error {
+    color: #a94442;
+  }
+  
+  .error-msg {
+      text-decoration: none;
+      font-weight: normal;
+  }
+  
+  .fix-error-icon {
+    top: 27px;
+  }

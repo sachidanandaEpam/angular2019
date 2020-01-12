@@ -1,0 +1,13 @@
+@import '~font-face-generator/mixin';
+
+@include font-face(
+    $fonts: (
+        'Task Icons': (
+            400: (
+                normal: 'task-icons'
+            )
+        )
+    ),
+    $types: 'ttf' 'woff' 'svg',
+    $path: '~/assets/fonts'
+)
