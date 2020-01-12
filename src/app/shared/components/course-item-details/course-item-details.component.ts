@@ -1,7 +1,10 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseItem } from 'src/app/core/models';
+import { CourseItem, Author } from 'src/app/core/models';
 import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-item-details',
@@ -17,8 +20,7 @@ export class CourseItemDetailsComponent implements OnInit {
   public itemDetailsForm: FormGroup;
   public itemDetailFields: FormFieldItem[];
 
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private _user: UserService) {
     this.itemDetailFields = [{
       cssClass: 'form-field',
       label: 'Title',
@@ -42,7 +44,7 @@ export class CourseItemDetailsComponent implements OnInit {
       label: 'Date',
       optional: false,
       name: 'courseTime',
-      hint: 'Select date',
+      hint: 'Select course date',
       type: 'text',
       readonly: this.isReadOnly
     },

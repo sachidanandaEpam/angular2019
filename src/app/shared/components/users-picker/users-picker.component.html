@@ -1,5 +1,8 @@
-<select [multiple]=true [id]="formFieldItem.name" [required]="!formFieldItem.optional"
+<app-select
+    [items]= "allAuthors$ | async"
+    [multiple]=true 
+    [placeholder]="formFieldItem.hint"
+    [bindLabel]="'name'"
+    [(ngModel)]="selctedAuthors"
     [disabled]="formFieldItem.readonly">
-    <option [ngValue]="null" disabled>{{formFieldItem.hint}}</option>
-    <option *ngFor="let op of allAuthors" [ngValue]="op" (change)="changeUsers($event)">{{op.name}}</option>
-</select>
+</app-select>

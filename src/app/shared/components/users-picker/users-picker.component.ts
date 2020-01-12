@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
-import { NG_VALUE_ACCESSOR, SelectMultipleControlValueAccessor } from '@angular/forms';
-import { Author } from 'src/app/core/models';
-import { UserService } from 'src/app/core/services/user.service';
+import { Component, forwardRef, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Author, FormFieldItem } from '@app/core/models';
+import { UserService } from '@app/core/services/user.service';
+import { SelectComponent } from '../forms/select/select.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users-picker',
@@ -16,35 +17,37 @@ import { UserService } from 'src/app/core/services/user.service';
     }
   ]
 })
-export class UsersPickerComponent {
-
-  public allAuthors: Author[];
-
-  constructor(private _user: UserService) {
-    this._user.getAllAuthors().subscribe(
-      result => this.allAuthors = result
-    );
-  }
-
-  get value(): Author[] {
-    return this._value;
-  }
-
-  set value(value: Author[]) {
-    this._value = value;
-    this._onTouched();
-    this._onChange(value);
-  }
+export class UsersPickerComponent implements ControlValueAccessor, OnInit {
 
   @Input() public formFieldItem: FormFieldItem;
 
-  private disabled = false;
-  private _value: Author[];
-  private _onChange: (value: any) => void = () => { };
-  private _onTouched = () => { };
+  @Output() public selected = new EventEmitter<Author[]>();
+
+  @ViewChild(SelectComponent, { static: true}) public select: SelectComponent;
+
+  public allAuthors$: Observable<Author[]>;
+  
+  private _selctedAuthors: Author[];
+  private _onChange: (value: Author[]) => void = () => {};
+  private _onTouched = () => {};
+
+  public get selctedAuthors(): Author[] {
+    return this._selctedAuthors;
+  }
+
+  public set selctedAuthors(value: Author[]) {
+    this._selctedAuthors = value;
+    this.selected.emit(value);
+    this._onChange(this._selctedAuthors);
+    this._onTouched();
+  }
+
+  constructor(private _user: UserService) {
+    console.log('inside users picker component constructor');
+  }
 
   public writeValue(value: Author[]): void {
-    this._value = value;
+    this._selctedAuthors = value;
   }
   public registerOnChange(fn: any): void {
     this._onChange = fn;
@@ -54,10 +57,10 @@ export class UsersPickerComponent {
   }
 
   public setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.formFieldItem.readonly = isDisabled;
   }
 
-  public changeUsers(e) {
-    console.log(e);
+  public ngOnInit() {
+    this.allAuthors$ = this._user.getAllAuthors();
   }
 }

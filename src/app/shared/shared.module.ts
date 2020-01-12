@@ -14,7 +14,7 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { DurationsComponent } from './components/durations/durations.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormFieldWrapperComponent } from './components/form-field-wrapper/form-field-wrapper.component';
-import { SelectComponent } from './components/forms/select/select/select.component';
+import { SelectComponent } from './components/forms/select/select.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ModalComponent } from './components/modal/modal.component';

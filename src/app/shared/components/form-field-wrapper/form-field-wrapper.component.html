@@ -1,7 +1,7 @@
 <div [ngClass]="formItem.cssClass">
     <label [attr.for]="formItem.name">{{ formItem.label }}:
         <span *ngIf="!formItem.optional" class="required"></span>
-        <ng-content [formControlName]="formItem.name"></ng-content>
-        <app-validation *ngIf="hasErrors()" [errors]="errors"></app-validation>
+        <ng-content [formControlName]="formItem.name" ></ng-content>
+        <app-validation-error-display *ngIf="hasErrors()" [errors]="errors"></app-validation-error-display>
     </label>
 </div>
