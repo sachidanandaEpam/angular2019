@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 import { Credentials } from '../../core/models';
+import { ValidationService } from '@app/core/services/validation.service';
 
 @Component({
   selector: 'app-login-form',
@@ -18,14 +19,15 @@ export class LoginFormComponent implements OnInit {
 
   public loginFields: FormFieldItem[];
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private validation: ValidationService) {
     this.loginFields = [{
       cssClass: 'form-field',
       label: 'Email',
       optional: false,
       name: 'email',
       hint: 'Enter email address',
-      type: 'email'
+      type: 'input',
+      inputType: 'email'
     },
     {
       cssClass: 'form-field',
@@ -33,15 +35,14 @@ export class LoginFormComponent implements OnInit {
       optional: false,
       name: 'password',
       hint: 'Enter password',
-      type: 'password'
+      type: 'input',
+      inputType: 'password',
+      minLength: 5
     }];
   }
 
   public ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
-    });
+    this.loginForm = this.validation.buildFormGroup(this.loginFields);
   }
 
   public onSubmit() {

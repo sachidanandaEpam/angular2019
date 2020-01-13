@@ -3,7 +3,7 @@
         <form class="form-controller" [formGroup]="itemDetailsForm" (ngSubmit)="onSubmit()">
             <fieldset class="form-fieldset">
                 <app-form-field-wrapper [formItem]="itemDetailFields[0]" [formGroup]="itemDetailsForm">
-                    <input [type]="itemDetailFields[0].type" [id]="itemDetailFields[0].name"
+                    <input [type]="itemDetailFields[0].inputType" [id]="itemDetailFields[0].name"
                         [placeholder]="itemDetailFields[0].hint" [formControlName]="itemDetailFields[0].name"
                         [required]="!itemDetailFields[0].optional" [readonly]="itemDetailFields[0].readonly">
                 </app-form-field-wrapper>
@@ -20,15 +20,16 @@
                 </app-form-field-wrapper>
 
                 <app-form-field-wrapper [formItem]="itemDetailFields[3]" [formGroup]="itemDetailsForm">
-                    <app-durations [formFieldItem]="itemDetailFields[3]" [formControlName]="itemDetailFields[3].name">
-                    </app-durations>
+                    <input [type]="itemDetailFields[3].inputType" [id]="itemDetailFields[3].name"
+                        [placeholder]="itemDetailFields[3].hint" [formControlName]="itemDetailFields[3].name"
+                        [required]="!itemDetailFields[3].optional" [readonly]="itemDetailFields[3].readonly">
                 </app-form-field-wrapper>
 
                 <app-form-field-wrapper [formItem]="itemDetailFields[4]" [formGroup]="itemDetailsForm">
                     <app-users-picker [formFieldItem]="itemDetailFields[4]"></app-users-picker>
                 </app-form-field-wrapper>
 
-                    <input [type]="itemDetailFields[5].type" [id]="itemDetailFields[5].name"
+                    <input [type]="itemDetailFields[5].inputType" [id]="itemDetailFields[5].name"
                         [formControlName]="itemDetailFields[5].name" [required]="!itemDetailFields[5].optional"
                         [readonly]="itemDetailFields[5].readonly">
             </fieldset>

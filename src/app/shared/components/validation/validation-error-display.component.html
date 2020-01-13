@@ -1,5 +1,5 @@
 <div *ngIf="errorList?.length" class="form-error">
     <div *ngFor="let error of errorList" class="error-msg">
-        {{error.message}}
+        {{error.data.customMessage ? error.data.customMessage : ('app.form.error.' + error.message | translate:error.data ) }}
     </div>
 </div>

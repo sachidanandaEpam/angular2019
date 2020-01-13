@@ -21,6 +21,7 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() public multiple = true;
   @Input() public bindLabel?: string;
   @Input() public bindValue?: string;
+  @Input() public clearable?: boolean;
 
   @ViewChild(NgSelectComponent, { static: true}) public select: NgSelectComponent;
 

@@ -4,7 +4,7 @@
             <fieldset class="form-fieldset">
                 <legend class="form-header">Login</legend>
                 <app-form-field-wrapper *ngFor="let item of loginFields" [formItem]="item" [formGroup]="loginForm">
-                    <input [type]="item.name" [id]="item.name" [placeholder]="item.hint" [formControlName]="item.name"
+                    <input [type]="item.inputType" [id]="item.name" [placeholder]="item.hint" [formControlName]="item.name"
                         [required]="!item.optional">
                 </app-form-field-wrapper>
             </fieldset>

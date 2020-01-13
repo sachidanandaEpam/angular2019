@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CourseItem, Author } from 'src/app/core/models';
 import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ValidationService } from '@app/core/services/validation.service';
 
 @Component({
   selector: 'app-course-item-details',
@@ -20,15 +21,17 @@ export class CourseItemDetailsComponent implements OnInit {
   public itemDetailsForm: FormGroup;
   public itemDetailFields: FormFieldItem[];
 
-  constructor(private formBuilder: FormBuilder, private _user: UserService) {
+  constructor(private validation: ValidationService) {
     this.itemDetailFields = [{
       cssClass: 'form-field',
       label: 'Title',
       optional: false,
       name: 'title',
       hint: 'Enter course title',
-      type: 'text',
-      readonly: this.isReadOnly
+      type: 'input',
+      readonly: this.isReadOnly,
+      inputType: 'text',
+      maxLength: 50
     },
     {
       cssClass: 'form-field',
@@ -37,7 +40,8 @@ export class CourseItemDetailsComponent implements OnInit {
       name: 'description',
       hint: 'Enter course description',
       type: 'textarea',
-      readonly: this.isReadOnly
+      readonly: this.isReadOnly,
+      maxLength: 500
     },
     {
       cssClass: 'form-field form-field-quarter',
@@ -45,17 +49,19 @@ export class CourseItemDetailsComponent implements OnInit {
       optional: false,
       name: 'courseTime',
       hint: 'Select course date',
-      type: 'text',
-      readonly: this.isReadOnly
+      type: 'input',
+      readonly: this.isReadOnly,
+      inputType: 'text'
     },
     {
       cssClass: 'form-field form-field-quarter',
-      label: 'Durations',
+      label: 'Durations (mins)',
       optional: false,
       name: 'durationInMins',
       hint: 'Enter durations in minutes',
-      type: 'text',
-      readonly: this.isReadOnly
+      type: 'input',
+      readonly: this.isReadOnly,
+      inputType: 'number'
     },
     {
       cssClass: 'form-field form-field-half',
@@ -69,26 +75,15 @@ export class CourseItemDetailsComponent implements OnInit {
     {
       optional: false,
       name: 'id',
-      type: 'hidden',
-      readonly: this.isReadOnly
+      type: 'input',
+      readonly: this.isReadOnly,
+      inputType: 'hidden'
     }];
 
   }
 
   public ngOnInit() {
-    this.itemDetailsForm = this.formBuilder.group({
-      id: [null],
-      title: [null, [Validators.required]],
-      durationInMins: [null, [Validators.required]],
-      description: [null, [Validators.required]],
-      courseTime: [null, [Validators.required]],
-      authors: this.formBuilder.array([
-        this.formBuilder.group({
-          id: [null, [Validators.required]],
-          name: [null, [Validators.required]]
-        })
-      ])
-    });
+    this.itemDetailsForm = this.validation.buildFormGroup(this.itemDetailFields);
 
     this.itemDetailsForm.patchValue(this.item);
   }

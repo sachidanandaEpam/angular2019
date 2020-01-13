@@ -25,6 +25,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     private ignoreRequests(req: HttpRequest<any>): boolean {
-        return !this.excludedEndpoints.some(excluded => req.url.endsWith(excluded));
+        return req.url.includes('assets/') || !this.excludedEndpoints.some(excluded => req.url.endsWith(excluded));
     }
 }

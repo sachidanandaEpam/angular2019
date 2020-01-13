@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TranslateModule } from '@ngx-translate/core';
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 import { OwlDateTimeModule } from 'ng-pick-datetime/date-time';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
@@ -11,7 +12,6 @@ import { AppRoutingModule } from '../app-routing.module';
 import { BlockLoadingComponent } from './components/block-loading/block-loading.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
-import { DurationsComponent } from './components/durations/durations.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormFieldWrapperComponent } from './components/form-field-wrapper/form-field-wrapper.component';
 import { SelectComponent } from './components/forms/select/select.component';
@@ -34,7 +34,6 @@ const COMPONENTS = [
   PageNotFoundComponent,
   ValidationErrorDisplayComponent,
   DatePickerComponent,
-  DurationsComponent,
   UsersPickerComponent,
   FormFieldWrapperComponent,
   ModalComponent,
@@ -61,7 +60,8 @@ const ANGULARMODULES = [
   CommonModule,
   NgSelectModule,
   OwlDateTimeModule,
-  OwlMomentDateTimeModule
+  OwlMomentDateTimeModule,
+  TranslateModule
 ];
 
 @NgModule({

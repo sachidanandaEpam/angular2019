@@ -59,14 +59,14 @@
 }
 
 .form-field .form-error {
-    color: #a94442;
-  }
+    color:$color-red;
+}
   
-  .error-msg {
-      text-decoration: none;
-      font-weight: normal;
-  }
-  
-  .fix-error-icon {
-    top: 27px;
-  }
+.error-msg {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.fix-error-icon {
+top: 27px;
+}
