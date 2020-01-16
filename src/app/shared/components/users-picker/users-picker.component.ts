@@ -26,7 +26,7 @@ export class UsersPickerComponent implements ControlValueAccessor, OnInit {
   @ViewChild(SelectComponent, { static: true}) public select: SelectComponent;
 
   public allAuthors$: Observable<Author[]>;
-  
+
   private _selctedAuthors: Author[];
   private _onChange: (value: Author[]) => void = () => {};
   private _onTouched = () => {};
@@ -42,9 +42,7 @@ export class UsersPickerComponent implements ControlValueAccessor, OnInit {
     this._onTouched();
   }
 
-  constructor(private _user: UserService) {
-    console.log('inside users picker component constructor');
-  }
+  constructor(private _user: UserService) { }
 
   public writeValue(value: Author[]): void {
     this._selctedAuthors = value;

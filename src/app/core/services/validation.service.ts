@@ -10,7 +10,7 @@ export class ValidationService {
   constructor() { }
 
   public buildFormGroup(items: FormFieldItem[]): FormGroup {
-    const group: any = {};
+    const group: Record<string, FormControl> = {};
     const initialValue = null;
 
     items.forEach(item => {
