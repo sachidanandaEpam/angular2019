@@ -28,9 +28,25 @@ textarea {
     transition: color 200ms,background-color 500ms,border-color 500ms;
     width: 100%;
 
-    &:hover {
+    &:hover, &:focus {
+        color: rgba($color-primary, $hover-alpha);
+        border-color: rgba($color-primary, $hover-alpha);
+    }
+
+    &:focus {
         color: $color-primary;
         cursor: auto;
+    }
+
+    &[disabled], &.disabled {
+        cursor: not-allowed;
+        color: rgba($color-primary, $disabled-alpha);
+        border-color: rgba($color-primary, $disabled-alpha);
+    }
+
+    &.error, &.ng-touched.ng-invalid, .ng-touched.ng-invalid > & {
+        border-color: $color-red;
+        color: $color-red;
     }
 
     &::placeholder {

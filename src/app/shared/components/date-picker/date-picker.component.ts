@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
+import { Component, Input, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import * as moment from 'moment';
+import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 
 @Component({
   selector: 'app-date-picker',
@@ -15,23 +16,27 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class DatePickerComponent implements ControlValueAccessor {
+  @HostBinding('class.input-group')
+  public group = true;
 
-  get value(): string {
+  @Input() public formFieldItem: FormFieldItem;
+
+  public defaultPicker = moment.localeData().longDateFormat('L');
+
+  public disabled = false;
+  private _value: string;
+  public _onChange: (value: any) => void = () => { };
+  public _onTouched = () => { };
+
+  public get value(): string {
     return this._value;
   }
 
-  set value(value: string) {
+  public set value(value: string) {
     this._value = value;
     this._onTouched();
     this._onChange(value);
   }
-
-  @Input() public formFieldItem: FormFieldItem;
-
-  private disabled = false;
-  private _value: string;
-  private _onChange: (value: any) => void = () => { };
-  private _onTouched = () => { };
 
   public writeValue(value: string): void {
     this._value = value;
@@ -44,5 +49,9 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
   public setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  public handleBlur() {
+    this._onTouched();
   }
 }

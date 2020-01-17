@@ -10,6 +10,7 @@ import { FormFieldItem } from 'src/app/core/models/form-field-item.model';
 export class FormFieldWrapperComponent {
   @Input() public formItem: FormFieldItem;
   @Input() public formGroup: FormGroup;
+  @Input() public items?: any[];
 
   public hasErrors(): boolean {
     if (!this.formGroup || !this.formItem || !this.formItem.name) {

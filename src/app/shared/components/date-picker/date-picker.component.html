@@ -1,2 +1,21 @@
-<input [type]="formFieldItem.type" [id]="formFieldItem.name" [placeholder]="formFieldItem.hint"
-    [required]="!formFieldItem.optional" [(ngModel)]="value" [readonly]="formFieldItem.readonly">
+<input
+    #input
+    type="text"
+    autocomplete="off"
+    [id]="formFieldItem.name"
+    [placeholder]="formFieldItem.hint"
+    [required]="!formFieldItem.optional"
+    [readonly]="formFieldItem.readonly"
+    (blur)="handleBlur()"
+    [owlDateTime]="picker"
+>
+
+<button
+    #trigger
+    type="button"
+    class="input-append"
+    [owlDateTimeTrigger]="picker"
+>
+    <span class="icon icon-calendar1"></span>
+    <owl-date-time #picker pickerType="calendar" (afterPickerClosed)="trigger.focus()"></owl-date-time>
+</button>

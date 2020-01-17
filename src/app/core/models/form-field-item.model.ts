@@ -6,4 +6,7 @@ export class FormFieldItem {
     public hint?: string;
     public type?: string;
     public readonly?: boolean;
+    public minLength?: number;
+    public maxLength?: number;
+    public inputType?: string;
 }

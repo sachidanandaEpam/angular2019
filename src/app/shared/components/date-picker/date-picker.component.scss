@@ -1,0 +1,19 @@
+@import '_variables';
+
+input {
+    border-right: none;
+}
+
+.input-append {
+    appearance: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+
+    & > .icon {
+        margin-top: -.45rem;
+    }
+
+    &:active {
+        color: initial;
+    }
+}

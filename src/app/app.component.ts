@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AppConfig } from './core/models';
+import { LocaleService } from './core/services/locale.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,13 @@ export class AppComponent implements OnInit {
   public title: string;
 
   public ngOnInit(): void {
+    this._locale.initialize();
     this.setTitle(this.title);
   }
-  public constructor(private _title: Title, private _appConfig: AppConfig) {
+
+  public constructor(
+      private _title: Title, private _appConfig: AppConfig,
+      private _locale: LocaleService) {
     this.title = this._appConfig.title;
   }
 

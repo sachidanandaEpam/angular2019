@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { environment } from 'src/environments/environment';
 import { appConfig } from './app-config';
@@ -25,8 +27,13 @@ const PROVIDERS = [
 ];
 
 const EXPORTS = [
-  NgxSmartModalModule
+  NgxSmartModalModule,
+  TranslateModule
 ];
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/');
+}
 
 @NgModule({
   imports: [
@@ -37,6 +44,13 @@ const EXPORTS = [
     EffectsModule.forFeature([AuthEffects, ItemsEffects]),
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [ HttpClient ]
+      }
     }),
     !environment.production ? StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
